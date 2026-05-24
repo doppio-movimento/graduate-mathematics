@@ -1,0 +1,234 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\newcommand{\innerprod}[2]{\left<#1, #2\right>}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\begin{document}
+
+\hfill April 12, 2019
+\begin{center}
+\begin{large}
+\textbf{MAT 524: Functions of a Real Variable II \\
+\vspace{-5mm}
+Homework IX \\}
+\end{large}
+\vspace{-2mm}
+Nolan R. H. Gagnon \\
+\end{center}
+\vspace{-0.5cm}
+\noindent \textbf{{\huge [}{\Large [}} Problem One \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Let $f\in L^{1}(\mathbb{R}).$ Prove that $\hat{f}$ is a continuous function on $\mathbb{R}$.
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent Let $y_0\in\mathbb{R}$. We will show that $\lim\limits_{y\rightarrow y_0} \hat{f}(y) = \hat{f}(y_0).$ By definition of the Fourier Transform, we have
+\begin{align}
+    \lim\limits_{y\rightarrow y_0} \hat{f}(y) &= \lim\limits_{y\rightarrow y_0}\int_{\mathbb{R}} f(x) e^{-2\pi i x y} dx. \label{eq1.1}
+\end{align}
+Note that $f(x)e^{-2\pi ix y}$ is dominated by $|f(x)|$, in the sense that $\left|f(x)e^{-2\pi ixy}\right|\leq |f(x)|$. Furthermore, since $f \in L^1(\mathbb{R})$, we have $\int_{\mathbb{R}} |f(x)| dx < \infty.$ Now,
+\begin{align}
+    \lim_{y\rightarrow y_0} f(x)e^{-2\pi ixy} &= f(x)\lim_{y\rightarrow y_0}\left[\cos(2\pi xy) -i\sin(2\pi x y)\right] \\
+    &= f(x)\left[\cos(2\pi x y_0) - i \sin(2\pi x y_0)\right] \\
+    &= f(x)e^{-2\pi i x y_0}.
+\end{align}
+Thus, by the Lebesgue Dominated Convergence Theorem,
+\begin{align}
+    \lim_{y\rightarrow y_0}\int_{\mathbb{R}}f(x)e^{-2\pi i x y} dx &= \int_{\mathbb{R}} f(x) e^{-2\pi ix y_0}dx \\
+    &= \hat{f}(y_0).
+\end{align}
+Therefore, $\hat{f}$ is continuous on $\mathbb{R}.$
+
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem Two \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Let $f = \chi_{[-1,1]}$ be the characteristic function of $[-1,1]$. Show that for any real number $y\neq 0$, $$\hat{f}(y) = \frac{\sin(2\pi y)}{\pi y}.$$ Show directly that $\hat{f}$ is continuous at $y=0$. 
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent Let $y$ be non-zero. Then
+\begin{align}
+    \hat{f}(y) &= \int_{\mathbb{R}} \chi_{[-1,1]}(x) e^{-2\pi i x y} dx \\
+    &= \int_{-1}^1 e^{-2\pi i x y} dx \\
+    &= \left[\frac{e^{-2\pi i xy}}{-2\pi iy}\right]_{x=-1}^{x=1} \\
+    &= \frac{e^{-2\pi iy}-e^{2\pi iy}}{-2\pi iy} \\
+    &=  \frac{-2i\sin(2\pi y)}{-2\pi i y} \\
+    &= \frac{\sin(2\pi y)}{2\pi y}.
+\end{align}
+Next, we will show that $\hat{f}$ is continuous at $y=0.$ We have that
+\begin{align}
+    \lim\limits_{y \rightarrow 0} \hat{f}(y) &= \lim\limits_{y\rightarrow 0}\int_{-1}^{1} e^{-2\pi i x y} dx.
+\end{align} 
+Note that the function $e^{-2\pi i xy}$ is dominated by $1$ in the sense that $\left| e^{-2\pi i x y}\right| \leq 1$, and $\int_{-1}^{1} 1 dx < \infty$. Furthermore, 
+\begin{align}
+    \lim_{y\rightarrow 0} e^{-2\pi ix y} &= \lim_{y\rightarrow 0} \left[\cos(2\pi xy) - i \sin(2\pi xy)\right] \\
+    &= \cos(0) - i\sin(0) \\
+    &= 1.
+\end{align}
+Thus, by the Lebesgue Dominated Convergence Theorem,
+\begin{align}
+    \lim_{y\rightarrow 0} \int_{-1}^{1} e^{-2\pi x y}dx &= \int_{-1}^{1} e^{0} dx \\
+    &= \hat{f}(0).
+\end{align}
+Therefore, $\hat{f}$ is continuous at $0$. (It actually takes the value $2$ at $y=0$).
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem Three \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Let $f(x) = e^{-\pi x^2}$.
+\begin{flushleft}
+\textbf{(a)} Show that $\hat{f}(0) = 1.$ \\
+\textbf{(b)} Show more generally that $\hat{f}(y) = f(y)$ for all $y$. 
+\end{flushleft}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent \textbf{(a)} The Fourier transform of $f$ is 
+\begin{align}
+    \hat{f}(y) &= \int_\mathbb{R} e^{-\pi x^2} e^{-2\pi i xy} dx.
+\end{align}
+Therefore,
+\begin{align}
+    \hat{f}(0) &= \int_\mathbb{R} e^{-\pi x^2} dx.
+\end{align}
+
+ Now, to compute this integral, we consider what happens when we take its square:
+\begin{align}
+    \left(\int_{\mathbb{R}} e^{-\pi x^2} dx\right)^2 &= \left(\int_\mathbb{R} e^{-\pi x^2} dx\right)\left(\int_\mathbb{R}e^{-\pi y^2}dy\right) \\
+    &= \iint_{\mathbb{R}^2} e^{-\pi x^2 -\pi y^2} dxdy.
+\end{align}
+This integral can be easily computed in polar coordinates. We have
+\begin{align}
+    \iint_{\mathbb{R}^2} e^{-\pi x^2 -\pi y^2} dxdy &= \int_{0}^{2\pi}\int_{0}^{\infty} e^{-\pi r^2} r dr d\theta \\
+    &=\int_0^{2\pi}\frac{1}{2\pi} d\theta \\
+    &= \frac{2\pi-0}{2\pi} \\
+    &= 1.
+\end{align}
+
+\vspace{5mm}
+
+\noindent\textbf{(b)} We know from class that \textbf{(*)} $(2\pi i)M\hat{f} = \widehat{Df}$ and \textbf{(**)}$\widehat{Mf} =  \frac{-1}{2\pi i}D\hat{f}.$ From $\textbf{(*)}$, we see that
+\begin{align}
+    2\pi i y \hat{f}(y) &= \int_{\mathbb{R}} -2\pi x e^{-\pi x^2}e^{-2\pi i x y} dx \\
+    &= -2\pi\int_{\mathbb{R}}xe^{-\pi x^2} e^{-2\pi ixy} dx.
+\end{align}
+In other words, $-iy\hat{f}(y) = \widehat{Mf}.$ But from $\textbf{(**)}$, we know that $\widehat{Mf} = \frac{-1}{2\pi i}Df$, so we have
+\begin{align}
+    -iy\hat{f}(y) &= \frac{-1}{2\pi i}\hat{f}^{\prime}(y).
+\end{align}
+This can be written as the separable differential equation
+\begin{align}
+    -\frac{1}{2\pi}\frac{d\hat{f}}{dy} = y\hat{f}.
+\end{align}
+The solution to this differential equation is 
+\begin{align}
+    \hat{f}(y) &= Ae^{-\pi y^2}.
+\end{align}
+From part \textbf{(a)}, we know that $A = 1$. Therefore, $\hat{f}(y) = f(y).$
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\end{document}
