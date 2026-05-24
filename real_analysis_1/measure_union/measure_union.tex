@@ -1,0 +1,125 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 523 HW 6}
+\begin{document}
+
+\begin{center}
+\begin{large}
+\textbf{MAT 523: Functions of a Real Variable I \\
+Homework VI \\}
+\end{large}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\noindent \textbf{(1.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill
+
+\noindent If $E$ has finite outer measure, then for any $\varepsilon>0$, $E$ is the disjoint union of a finite number of subsets, each of which has outer measure at most $\varepsilon.$
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(2.)} 
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $E_1, E_2$ be measurable sets. Then $$m(E_1\cup E_2) + m(E_1\cap E_2) = m(E_1) + m(E_2).$$ 
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+By the definition of a measurable set, we have that 
+$$
+m(E_1) = m(E_1\cap E_2) + m\left(E_1\cap E_2^{C}\right)
+$$
+and
+$$
+m(E_2) = m(E_2\cap E_1) + m\left(E_2\cap E_1^{C}\right).
+$$
+Adding these equations together yields
+\begin{align}
+m(E_1) + m(E_2) &= m(E_1\cap E_2) + m(E_2\cap E_1) + m\left(E_1\cap E_2^{C}\right) + m\left(E_2\cap E_1^{C}\right).
+\end{align}
+Now, we can write $E_1\cup E_2$ in the following way:
+\begin{align*}
+    E_1\cup E_2 &= (E_1\setminus E_2)\cup (E_2\setminus E_1) \cup (E_1\cap E_2) \\
+    &=\left(E_1\cap E_2^{C}\right)\cup \left(E_2\cap E_1^{C}\right)\cup (E_1\cap E_2).
+\end{align*}
+Since this is a disjoint union, it follows that
+\begin{align*}
+    m(E_1\cup E_2) &= m\left(E_1\cap E_2^{C}\right) + m\left(E_2 \cap E_1^{C}\right) + m(E_1\cap E_2).
+\end{align*}
+But then equation (1) becomes 
+$$
+m(E_1) + m(E_2) = m(E_1\cap E_2) + m(E_1\cup E_2),
+$$
+as required.
+
+\hfill$\blacksquare$
+
+\end{document}
