@@ -1,0 +1,117 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 523 HW 7}
+\begin{document}
+
+\hfill March 29th, 2019
+\begin{center}
+\begin{large}
+\textbf{MAT 524: Functions of a Real Variable II \\
+\vspace{-5mm}
+Homework VII \\}
+\end{large}
+\vspace{-2mm}
+Nolan R. H. Gagnon \\
+\end{center}
+\vspace{-0.5cm}
+\noindent \textbf{{\huge [}{\Large [}} Problem Three \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Using Bessel's inequality, prove that for every measurable subset $A \subseteq [0,1]$,
+$$
+\lim\limits_{n\rightarrow\infty}\int_A \cos(2\pi n x) dx = \lim\limits_{n\rightarrow\infty} \sin(2\pi n x)dx = 0.
+$$
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent We begin by noting that the function $y = \frac{\chi_A}{\sqrt{2}}$ is in $L^2([0,1])$ and the set $$\bigcup\limits_{n=1}^{\infty}\left\lbrace \sqrt{2}\cos(2\pi n x)\right\rbrace$$ is orthonormal in $L^2([0,1])$. For $n\in\mathbb{N}$, the Fourier coefficients of $y$ are 
+\begin{align}
+\hat{y}(n) &= \left<y,\sqrt{2}\cos(2\pi n x)\right> \\
+&= \int\limits_0^1 \frac{\chi_A}{\sqrt{2}} \sqrt{2}\cos(2\pi n x) dx \\
+&= \int\limits_{A} \cos(2\pi n x) dx.
+\end{align}\
+By Bessel's inequality,
+$$\sum\limits_{n=1}^{\infty} \left| \int_A \cos(2\pi n x) \right|^2 \leq \norm{y}^2.$$ But
+\begin{align}
+    \norm{y}^2 &= \left(\left[\int\limits_0^1 \left| \frac{\chi_A}{\sqrt{2}}\right|^2\right]^{1/2}\right)^2 \\
+    &= \int_A \frac{1}{\sqrt{2}} \\
+    &= \frac{m(A)}{\sqrt{2}} \\
+    &< \frac{1}{\sqrt{2}}.
+\end{align}
+Thus, the sum $\sum\limits_{n=1}^{\infty} \left| \int_A \cos(2\pi n x) \right|^2$ converges, so we must have
+$$\lim\limits_{n\rightarrow\infty} \left| \int_A \cos(2\pi n x) \right|^2 = 0.$$ Since the squared absolute value function is continuous, we can move the limit inside, obtaining
+$$\left|\lim\limits_{n\rightarrow\infty} \int_A \cos(2\pi n x) \right|^2=0,$$ i.e.,
+$$\lim\limits_{n\rightarrow\infty} \int_A \cos(2\pi n x) = 0.$$
+
+Now, since $$\bigcup\limits_{n=1}^{\infty}\left\lbrace \sqrt{2}\sin(2\pi n x)\right\rbrace$$ is also orthonormal in $L^2([0,1])$, we can apply the same argument as above to conclude that $$\lim\limits_{n\rightarrow\infty} \int_A \sin(2\pi n x) = 0.$$
+
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\end{document}
