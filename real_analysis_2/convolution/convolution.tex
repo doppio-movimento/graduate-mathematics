@@ -1,0 +1,120 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\newcommand{\innerprod}[2]{\left<#1, #2\right>}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 523 HW 10}
+\begin{document}
+
+\hfill April 17, 2019
+\begin{center}
+\begin{large}
+\textbf{MAT 524: Functions of a Real Variable II \\
+\vspace{-5mm}
+Homework X \\}
+\end{large}
+\vspace{-2mm}
+Nolan R. H. Gagnon \\
+\end{center}
+\vspace{-0.5cm}
+\noindent \textbf{{\huge [}{\Large [}} Problem One \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill
+
+\noindent For $f,g\in L^{1}(\mathbb{R})$, define their convolution by $$f * g(x) = \int_{\mathbb{R}} f(x-t)g(t) dt.$$ It can be shown that $f*g(x)$ exists for almost all $x$, and that $f*g\in L^{1}(\mathbb{R})$. Granting this, prove that \textbf{(a)} $f*g = g*f$ and \textbf{(b)} $\widehat{f *g} = \hat{f}\hat{g}.$
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent \textbf{(a)} We have
+\begin{align}
+    f * g(x) &= \int_\mathbb{R} f(x-t)g(t)dt. \label{eq1.1}
+\end{align}
+Let $u=x-t$. Then, if we consider $x$ to be fixed, we can write $du = -dt$. Furthermore, we have $t=x-u$. With this substitution, we have
+\begin{align}
+    \int_\mathbb{R} f(x-t)g(t)dt &= \int_{\infty}^{-\infty} f(u)g(x-u)(-du) \\
+    &=\int_{-\infty}^{\infty}g(x-u)f(u)du \\
+    &=\int_\mathbb{R}g(x-u)f(u)du \\
+    &= g * f(x).
+\end{align}
+
+\vspace{5mm}
+
+\noindent\textbf{(b)} First note that since $f*g\in L^1(\mathbb{R})$, it follows that $\int_{\mathbb{R}} |f*g| < \infty$, i.e., the integral converges absolutely. The Fourier transform of $f*g$ is
+\begin{align}
+    \widehat{f*g}(y) &= \int_{\mathbb{R}}\left(\int_{\mathbb{R}}f(x-t)g(t)dt\right)e^{-2\pi ixy}dx \\
+    &= \int_\mathbb{R}\int_\mathbb{R} f(x-t)g(t)e^{-2\pi ixy}dtdx.
+\end{align}
+Let $u=x-t$. Then $x=u+t$ and $du=dx$. Then we have, by Fubini's Theorem,
+\begin{align}
+    \int_\mathbb{R}\int_\mathbb{R} f(x-t)g(t)e^{-2\pi ixy}dtdx &= \int_\mathbb{R}\int_\mathbb{R}f(u)g(t)e^{-2\pi(u+t)y}dtdu \\
+    &= \left(\int_\mathbb{R}f(u)e^{-2\pi i uy}du\right)\left(\int_\mathbb{R}g(t)e^{-2\pi ity}dt\right) \\
+    &= \hat{f}(y)\hat{g}(y).
+\end{align}
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\end{document}
