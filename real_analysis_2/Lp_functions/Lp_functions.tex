@@ -1,0 +1,314 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 524 HW 3}
+\begin{document}
+
+\hfill Feb. 20, 2019
+\begin{center}
+\begin{large}
+\textbf{MAT 524: Functions of a Real Variable II \\
+\vspace{-5mm}
+Homework III\\}
+\end{large}
+\vspace{-2mm}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\vspace{5mm}
+
+\noindent \textbf{{\huge [}{\Large [}} Problem No. 1 \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Suppose $f_n, f\in L^1(E)$. We say that $f_n\rightarrow f$ in $L^1$ if $\norm{f-f_n}_1\rightarrow 0$, i.e., $$\int_E|f_n-f| \longrightarrow 0.$$
+Compare the two conditions
+
+\noindent(a) $f_n\rightarrow f$ almost everywhere\\
+\noindent(b) $f_n\rightarrow f$ in $L^1.$
+
+\noindent Determine whether (a) implies (b) or (b) implies (a). Give a proof or counter-example for each implication.
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent \textbf{Counter-example for (a) $\Rightarrow$ (b):} Suppose $E=[0,1]$ and $f_n(x) = nx^2(1-x^3)^n$. For $x\in E$, $$\lim\limits_{n\rightarrow\infty} nx^2(1-x^3)^n = 0$$ because $a^n$ shrinks faster than $n$ grows for $0\leq a < 1$. So $f_n\rightarrow 0$ almost everywhere, but
+\begin{align}
+    \lim\limits_{n\rightarrow\infty}\int_E \left|nx^2(1-x^3)^n - 0\right| \hspace{1mm} dx &= \lim\limits_{n\rightarrow\infty}\frac{-n}{3}\int_E -3x^2(1-x^3)^n \hspace{1mm} dx \\
+    &= \lim\limits_{n\rightarrow\infty} \left[\frac{-n(1-x^3)^{n+1}}{3n+3}\right]_0^1 \\
+    &= \frac{1}{3}.
+\end{align}
+Thus, $f_n$ doesn't converge to $f$ in $L^1$.
+
+\vspace{3mm}
+
+\noindent\textbf{Counter-example for (b) $\Rightarrow$ (a):} Suppose $E=[0,1]$ and $f_n = \sin(nx)$. Note that$f_n$ converges to $0$ in $L^1$ because 
+\begin{align}
+    \lim\limits_{n\rightarrow\infty}\int_E |\sin(nx)-0| \hspace{1mm} dx &= \lim\limits_{n\rightarrow\infty}\int_E \sin(nx) \hspace{1mm} dx \\
+    &= \lim\limits_{n\rightarrow\infty}\left[\frac{-\cos(n)}{n}+\frac{1}{n}\right] \\
+    &= 0.
+\end{align}
+But $f_n=\sin(nx)$ does not converge a.e. on $E$ as $n\rightarrow\infty$, due to the oscillating nature of the sine function.
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem No. 2 \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $f_n,f$ be integrable measurable functions on $E$. Assume $f_n\rightarrow f$ almost everywhere. Suppose that $\lim\limits_{n\rightarrow\infty}\int_E |f_n| = \int_E |f|$. Prove that $f_n\rightarrow f$ in $L^1(E)$.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent By the Triangle Inequality, $|f_n - f| \leq |f_n| + |f|$ for all $n\in\mathbb{N}$. Furthermore, since $\lim\limits_{n\rightarrow\infty}\int_E |f_n| = \int_E |f|$ and $f$ is integrable, we have 
+\begin{align}
+    \lim\limits_{n\rightarrow\infty}\int_E |f_n| + \int_E |f| &= \int_E |f| + \int_E |f|,
+\end{align}
+i.e.,
+\begin{align}
+    \lim\limits_{n\rightarrow\infty}\int_E \left(|f_n| + |f|\right) &= 2\int_E |f| \\
+    & < \infty.
+\end{align}
+Thus, by the Generalized Dominated Convergence Theorem (GDCT), 
+\begin{align}
+    \lim\limits_{n\rightarrow\infty}\int_{E} |f_n - f| &= \int_{E} \lim\limits_{n\rightarrow\infty} |f_n-f| \\
+    &= 0.
+\end{align}
+Therefore, $f_n$ converges to $f$ in $L^1(E)$.
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem No. 3 \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $C([0,1])$ denote the space of continuous real-valued functions on the interval $[0,1]$. Show that it is complete relative to the max-norm.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent Let $\lbrace f_n \rbrace$ be a Cauchy sequence of continuous functions in $C([0,1])$. Since $C([0,1])$ is a subspace of $L^{\infty}([0,1])$ and $[0,1]$ is measurable, we can use Proposition 5 and Theorem 7 to conclude that $\lbrace f_n\rbrace$ has a rapidly Cauchy subsequence that converges. Thus, by Proposition 4, $\lbrace f_n \rbrace$ converges. Let us call the function to which $\lbrace f_n \rbrace$ converges $f$. To show that $C([0,1])$ is complete with respect to the max-norm, we must show that $f\in C([0,1])$. In order to achieve this, we will show that $\norm{f_n-f}_{\infty} \rightarrow 0$. 
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem No. 4 \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $f$ be a bounded measurable function on $[0,1]$. Prove that $$\lim\limits_{p\rightarrow\infty} \norm{f}_p = \norm{f}_{\infty}.$$
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent 
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem No. 5 \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $1\leq p < \infty$. Suppose $f_n, f\in L^p(E)$ and $f_n\rightarrow f$ pointwise almost everywhere. Show that $\norm{f_n}_p\rightarrow \norm{f}_p$ if and only if $f_n\rightarrow f$ in $L^p(E)$.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent For the reverse direction of the proof, we need to use the $p$-norm analogue of the reverse triangle inequality. We have the following lemma:
+
+\vspace{5mm}
+
+\noindent\textbf{Lemma 5.1:} If $f,g$ are in $L^p(E)$, then $\left|\norm{f}_p-\norm{g}_p\right| \leq \norm{f-g}_p.$
+
+\vspace{5mm}
+
+\noindent\textbf{Proof:} By Minkowski's Inequality, we have $$\norm{f+g}_p \leq \norm{f}_p + \norm{g}_p.$$ Using this, we obtain the following inequalities: 
+\begin{align}
+    \norm{f}_p &= \norm{f-g+g}_p \leq \norm{f-g}_p + \norm{g}_p \label{mink1}\\ 
+    \norm{g}_p &= \norm{g-f+f}_p \leq \norm{g-f}_p + \norm{f}_p \label{mink2}
+\end{align}
+Rearranging (\ref{mink1}) and (\ref{mink2}), we see that
+\begin{align}
+    \norm{f}_p - \norm{g}_p &\leq \norm{f-g}_p \\
+    \norm{g}_p - \norm{f}_p &\leq \norm{g-f}_p.
+\end{align}
+But $\norm{f-g}_p=\norm{g-f}_p$, so we conclude that $$\left|\norm{f}_p-\norm{g}_p\right| \leq \norm{f-g}_p.$$
+
+\hfill$\blacksquare$
+
+\noindent Now we can move on the the proof of the result in the problem statement.
+
+\pagebreak
+
+\noindent\textbf{Proof of Main Result:} \textcolor{blue}{\textbf{($\Rightarrow$)}} First suppose that $\norm{f_n}_p\rightarrow \norm{f}_p$. Then 
+
+\begin{align}
+\lim\limits_{n\rightarrow\infty}\left[\int_E |f_n|^p\right]^{\frac{1}{p}} &= \left[\int_E|f|^p\right]^{\frac{1}{p}} \label{eq5.1}
+\end{align}
+Taking the $p$th power of both sides of Equation (\ref{eq5.1}) and applying the limit definition of continuity, we see that
+\begin{align}
+    \lim\limits_{n\rightarrow\infty}\int_E|f_n|^p &= \int_E|f|^p. \label{eq5.2}
+\end{align}
+Adding $\int_E |f|^p$ (which is finite, since $f\in L^p(E)$) to both sides of Equation (\ref{eq5.2}) and multiplying the result by $2^p$, we obtain
+\begin{align}
+    \lim\limits_{n\rightarrow\infty} \int_E 2^p\left(|f_n|^p+|f|^p\right) &= 2^{p+1}\int_E |f|^p \\
+    &< \infty.
+\end{align}
+We also have that $|f_n-f|^p \leq 2^p\left(|f_n|^p+|f|^p\right).$ Thus, by the GDCT, \begin{align}
+    \lim\limits_{n\rightarrow\infty}\left[\int_E|f_n-f|^p\right]^\frac{1}{p} &= \left[\lim\limits_{n\rightarrow\infty}\int_E|f_n-f|^p\right]^\frac{1}{p} \\
+    &= \left[\int_E\lim\limits_{n\rightarrow\infty}|f_n-f|^p\right]^\frac{1}{p} \\
+    &= 0^{\frac{1}{p}} \\
+    &= 0.
+\end{align}
+Therefore, $f_n\rightarrow f$ in $L^p(E).$
+
+\vspace{5mm}
+
+\noindent \textcolor{blue}{\textbf{($\Leftarrow$)}} Next, suppose that $f_n\rightarrow f$ in $L^p(E)$. By Lemma 5.1, 
+\begin{align}
+    \left|\norm{f_n}_p-\norm{f}_p\right| \leq \norm{f_n-f}_p. \label{eq5.3}
+\end{align}
+\noindent Taking the limit on both sides of (\ref{eq5.3}) yields
+\begin{align}
+    \lim\limits_{n\rightarrow\infty}\left|\norm{f_n}_p-\norm{f}_p\right| \leq 0 \label{eq5.4},
+\end{align}
+since $f_n\rightarrow f$ in $L^p(E)$. But the right-hand side of (\ref{eq5.4}) must be non-negative, so it follows that 
+\begin{align}
+    \lim\limits_{n\rightarrow\infty}\left|\norm{f_n}_p-\norm{f}_p\right| &= 0,
+\end{align}
+i.e.,
+\begin{align}
+    \lim\limits_{n\rightarrow\infty}\norm{f_n}_p &= \norm{f}_p,
+\end{align}
+as desired.
+
+\hfill$\blacksquare$ 
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\end{document}
