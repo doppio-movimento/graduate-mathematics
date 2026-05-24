@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 523 HW 4}
+\begin{document}
+
+\begin{center}
+\begin{large}
+\textbf{MAT 523: Functions of a Real Variable I \\
+Homework VII \\}
+\end{large}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\noindent \textbf{(1.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Problem}}}\hspace{3mm}\hrulefill
+
+\noindent Theorem 15 asserts that if $E_1\supset E_2 \supset \cdots $ is a descending chain of measurable sets with $m(E_1) < \infty$, then $$m\left(\bigcap\limits_{n=1}^{\infty}E_n\right)= \lim\limits_{n\rightarrow\infty}m(E_n).$$ Show by example that the statement need not hold if $m(E_1)=\infty.$
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent Let $E_n = (n, \infty).$ Then $E_1\supset E_2\supset \cdots$ is a descending chain of measurable sets with $m(E_1) = \ell[(1,\infty)] = \infty.$ As we showed in a previous homework, $\bigcap\limits_{n=1}^{\infty} E_n = \emptyset.$ Thus, $$m\left(\bigcap\limits_{n=1}^{\infty} E_n\right) = m(\emptyset) = 0.$$ The measure of any $E_n$, however, is $$m(E_n) = \ell[(n,\infty)] = \infty.$$ Thus, $$\lim\limits_{n\rightarrow\infty} m(E_n) = \lim\limits_{n\rightarrow\infty} \infty = \infty.$$ We can now see that the statement does not hold for this particular descending chain of sets.
+
+\pagebreak
+
+\noindent \textbf{(2.)} 
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent The Cantor set has no isolated points. 
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent 
+
+\vspace{3mm}
+
+\noindent Let $\mathcal{C}$ represent the Cantor set and let $x\in\mathcal{C}$. Let $\varepsilon>0$. We will show that the open interval $(x-\varepsilon, x+\varepsilon)$ contains a point in $\mathcal{C}$ that is not equal to $x$. Fix $N\in\mathbb{N}$ such that $\frac{1}{3^N}<\varepsilon.$ Since $x\in\mathcal{C}$, it is in each of the $C_k$ whose intersection forms $\mathcal{C};$ in particular, it is in $C_N$. This means it is in one of the disjoint interval components of length $\frac{1}{3^N}$ that comprise $C_N$. Denote this interval by $I=[a,b]$. Both $a$ and $b$ are elements of $\mathcal{C}$ (by construction). Since $b-a = \frac{1}{3^N} < \varepsilon$ and $x\in[a,b]$, it must be the case that $[a,b]\subset (x - \varepsilon, x+\varepsilon)$. This means both $a$ and $b$ are in $(x-\varepsilon,x+\varepsilon)$. Thus, there are at least two distinct elements of $\mathcal{C}$ in $(x-\varepsilon, x+\varepsilon).$ Therefore, $\mathcal{C}$ contains no isolated points.
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(3.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Between any two elements $x,y\in\mathcal{C}$, there is a real number $t\not\in\mathcal{C}.$
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent Let $x,y\in\mathcal{C}$. Fix $N\in\mathbb{N}$ such that $\frac{1}{3^N} < |x-y|.$ Now, since $x,y\in\mathcal{C}$, they are in each of the $C_k$ whose intersection forms $\mathcal{C}$; in particular, they are in $C_N$. This means they are each in exactly one of the disjoint interval components of length $\frac{1}{3^N}$ that comprise $C_N$. Since $|x-y|>\frac{1}{3^N}$, it is not possible for $x$ and $y$ to be in the same interval component. Therefore, there is an open interval $(a,b)$ of length at least $\frac{1}{3^N}$ such that $(a,b)\subset[x,y]$ but $(a,b)\not\subset\mathcal{C}$. Since $(a,b)$ has nonzero length, it contains a real number $t\not\in\mathcal{C}$ (in fact, it contains uncountably many such numbers). 
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(4.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Fix a number $\alpha\in(0,1)$. Let $\mathcal{F}$ be the subset of $[0,1]$ constructed in the same manner as the Cantor set except that each of the intervals removed at the $n$th deletion stage has length $\alpha3^{-n}$. Show that $\mathcal{F}$ is a closed set, $[0,1]\setminus \mathcal{F}$ is dense in $[0,1]$, and $m(\mathcal{F}) = 1 - \alpha$.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent Since $\mathcal{F}$ is constructed in the same manner as $\mathcal{C}$, it is an intersection of a collection of closed sets. Therefore, it is closed. 
+
+\vspace{3mm}
+
+\noindent To show that $[0,1]\setminus \mathcal{F}$ is dense in $[0,1]$, we begin by showing that $\mathcal{F}$ is nowhere dense in $[0,1]$. For each $n\in\mathbb{N}$, let $F_n$ be analogous to $C_n$ from the previous two problems. Let $x,y\in\mathcal{F}$. Denote by $\ell_n$ the length of the interval components of $F_n$. Fix $N\in\mathbb{N}$ such that $\ell_n < |x-y|.$ By the same reasoning used in Problem 3, it is impossible for $x$ and $y$ to be in the same interval component of $F_N$. Therefore, there is a nondegenerate open interval $(a,b)$ such that $(a,b)\subset[x,y]$ but $(a,b)\not\subset\mathcal{F}.$ Since $(a,b)$ is nondegenerate, it contains a real number $t\not\in\mathcal{F}.$ Thus, $\mathcal{F}$ is nowhere dense. Now, let $c,d\in[0,1]$. Suppose $c,d\in\mathcal{F}$. Then since $\mathcal{F}$ is nowhere dense, there is an element $g\not\in\mathcal{F}$ (i.e., $g\in[0,1]\setminus{F})$ such that $c<g<d$. Next suppose $c,d\in[0,1]\setminus\mathcal{F}$. (Proof not complete)
+
+\vspace{3mm}
+
+\noindent The measure of $[0,1]$ is $1$. Each of the subsets removed from $[0,1]$ in the creation of $\mathcal{F}$ is an interval, so the measure of each of these subsets is just its length. Since $[0,1]$ is measurable and each of the deleted intervals is measurable, we can use the Excision Property to find the measure of $\mathcal{F}$. Now, on the $k$th stage of the creation of $\mathcal{F}$, a total length of $\alpha\left(\frac{2}{3}\right)^k$ is removed from $[0,1]$. Thus, in the entire deletion process, we remove a length of
+\begin{align*}
+    \sum\limits_{k=1}^{\infty}\alpha\left(\frac{2}{3}\right)^k &= \frac{\alpha}{3}\sum\limits_{k=1}^{\infty}\left(\frac{2}{3}\right)^{k-1} \\
+    &=\frac{\alpha}{3}\sum\limits_{j=0}^{\infty}\left(\frac{2}{3}\right)^j \\
+    &= \frac{\alpha}{3}\left[\frac{1}{1-\frac{2}{3}}\right] \\
+    &=\frac{\alpha}{3}\left[\frac{1}{\frac{1}{3}}\right] \\
+    &= \alpha.
+\end{align*}
+
+\noindent Therefore, by the Excision Property, the measure of $\mathcal{F}$ is $1-\alpha.$
+
+\hfill$\blacksquare$
+\end{document}
