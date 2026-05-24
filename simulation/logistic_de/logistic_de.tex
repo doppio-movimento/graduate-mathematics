@@ -1,0 +1,183 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{1.5}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 586: Lab 8}
+\begin{document}
+
+%%
+%% Title 
+%%
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+
+\vspace{-0.5cm}
+\begin{flushleft}
+\noindent\textbox{\pgfornament[width = 9mm, color = black]{39}\hfill}\textbox{\hfil \textbf{\begin{large}MAT 586 \end{large}}\hfil}\textbox{\hfill \pgfornament[width = 9mm, color = black]{40}}
+\end{flushleft}
+\vspace{-5mm}
+\begin{large}
+\textbf{Lab 8} \\
+\end{large}
+
+\vspace{5mm}
+
+\begin{flushleft}
+\noindent\textbox{\pgfornament[width = 9mm, color = black, symmetry = h]{39}\hfill}\textbox{\hfil \textbf{\begin{large}Nolan R. H. Gagnon\end{large}}\hfill}\textbox{\hfill \pgfornament[width = 9mm, color = black, symmetry = h]{40}}
+\end{flushleft}
+
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{\# 1}}}\hspace{3mm}\hrulefill 
+
+\noindent The continuous-time logistic differential equation is
+$$
+\frac{dy}{dt} = ry\left(1 - \frac{y}{K}\right).
+$$
+If the initial condition is $y(0) = y_0$, then the solution to the differential equation is 
+$$
+y(t) = \frac{Ky_0e^{rt}}{K + y_0\left(e^{rt}-1\right)}.
+$$
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width = 0.6\textwidth]{ls_sol.pdf}	
+  \caption{Estimates of solution to logistic differential equation}
+  \label{fig:logistic_est}
+\end{figure}
+
+\noindent Figure 1 shows ``average'' and least-squares solutions to the differential equation with unknown $K$ and $r$ randomly chosen from unknown probability distributions. The least-squares estimates of $K$ and $r$ were $\hat{K} = 16.9370488$ and $\hat{r} = 0.6654223$. These estimates (and the figure above) were generated with the following R code.
+
+\pagebreak
+
+\noindent\mybox{\colorbox{yellow}{\textbf{lab8\_solution.R}}}\hspace{3mm}\hrulefill
+\begin{lstlisting}
+source("log_sol.R") ## Contains function with params to estimate with least-squares optimization.
+source("lab8data.R") ## Average data  
+library('Hmisc') ## Gives access to errbar function
+
+par.v <- optim(c(1, 1), log_sol, t.v = t.v, y.v = avgY.v)$par
+
+## Since y(0) = y0, it must be the case
+## that y0 = avgY.v[1] = (20*y0) / 20
+y0 <- avgY.v[1]
+
+## Least-squares estimate of K
+K_hat <- par.v[1]
+
+## Least-squares estimate of r
+r_hat <- par.v[2]
+
+## Calculate the least-squares solution for y(t)
+y.v <- (K_hat * y0 * exp(r_hat * t.v)) / (K_hat + y0 * (exp(r_hat * t.v) - 1))
+
+## Plot the average solution to the logistic diff. eq.
+## along with the solution found by least-squares 
+## optimization.
+errbar(t.v, avgY.v, avgY.v + sdY.v, avgY.v - sdY.v)
+lines(t.v, y.v, col = "red", lwd = 3)
+title(main = "Estimates of solution to logistic diff. eq. with params. K and r")
+legend("bottomright", legend = "Least-squares Sol.", lty = "solid", col = "red")
+\end{lstlisting}
+
+\vspace{10mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{log\_sol.R}}}\hspace{3mm}\hrulefill
+\begin{lstlisting}
+log_sol <- function(beta.v, t.v, y.v)
+{
+	## Get parameters from beta vector
+	K <- beta.v[1]
+	r <- beta.v[2]
+	
+	## Get y0 from average y vector
+	y0 <- y.v[1]	
+
+	## Compute predicted values	
+	yhat.v <- (K * y0 * exp(r * t.v)) / (K + y0 * (exp(r * t.v) - 1))
+	
+	## Compute residuals
+	res.v <- y.v - yhat.v
+
+	## Return sum of squared residuals	
+	return(sum(res.v ^ 2))
+}
+\end{lstlisting}
+
+\hfill$\blacksquare$
+
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\end{document}
