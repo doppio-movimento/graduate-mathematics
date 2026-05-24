@@ -1,0 +1,33 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+
+\linespread{1.8}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{1pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+
+\title{MAT 527:  Functions of a Complex Variable I \\
+	   \textbf{Submission I}}
+\author{Nolan R. H. Gagnon}
+\begin{document}
+\maketitle
+\large
+\noindent\mybox{\textbf{Theorem}} If $\left\lbrace U_{\lambda} \right\rbrace_{\lambda\in\Lambda}$ is a family of open sets, then $\bigcup_{\lambda\in\Lambda} U_{\lambda}$ is open.
+
+\vspace{3mm}
+
+\noindent\textbf{Proof:}  Let $\left\lbrace U_{\lambda} \right\rbrace_{\lambda\in\Lambda}$ be a family of open sets, where $\Lambda$ is some index set.  Let $z\in \bigcup_{\lambda\in\Lambda} U_{\lambda}$.  Then for some $\mu\in\Lambda$, $z$ is an element of $U_{\mu}$.  Now, since $U_{\mu}$ is open, there exists $\Delta >0$ such that $B(z;\Delta)\subseteq U_{\mu}$.  But clearly $U_{\mu}\subseteq \bigcup_{\lambda\in\Lambda} U_{\lambda}.$  Therefore, $B(z;\Delta)\subseteq \bigcup_{\lambda\in\Lambda} U_{\lambda}.$  Therefore, $\bigcup_{\lambda\in\Lambda} U_{\lambda}$ is open.
+\hfill$\blacksquare$
+\end{document}
