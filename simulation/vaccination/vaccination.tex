@@ -1,0 +1,356 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{1.5}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 586: Lab 6}
+\begin{document}
+
+%%
+%% Title 
+%%
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+
+\vspace{-0.5cm}
+\begin{flushleft}
+\noindent\textbox{\pgfornament[width = 9mm, color = black]{39}\hfill}\textbox{\hfil \textbf{\begin{large}MAT 586 \end{large}}\hfil}\textbox{\hfill \pgfornament[width = 9mm, color = black]{40}}
+\end{flushleft}
+\vspace{-5mm}
+\begin{large}
+\textbf{Lab 6} \\
+\end{large}
+
+\vspace{5mm}
+
+\begin{flushleft}
+\noindent\textbox{\pgfornament[width = 9mm, color = black, symmetry = h]{39}\hfill}\textbox{\hfil \textbf{\begin{large}Nolan R. H. Gagnon\end{large}}\hfill}\textbox{\hfill \pgfornament[width = 9mm, color = black, symmetry = h]{40}}
+\end{flushleft}
+
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Ex. 12.14}}}\hspace{3mm}\hrulefill 
+
+\noindent The figure below shows the distributions for the average degree of vaccinated nodes in four different scenarios. The black histogram was produced using a random network with 30\% of its nodes randomly vaccinated. The gray histogram was also produced using a random network, but in this case 30\% of its nodes were vaccinated using the ``vaccinate a neighbor'' strategy. From the histogram, it is clear that the average degree of vaccinated nodes increased under the ``vaccinate a neighbor'' strategy. 
+
+\vspace{3mm}
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width = 0.7\textwidth]{histogram.png}	
+  \caption{Histograms for Combinations of Network Types and Vaccination Strategies}
+  \label{fig:heat}
+\end{figure}
+
+\noindent The red histogram was produced using a Ring-Based Small World network (RBSW), with 30\% of its nodes randomly vaccinated. The blue histogram was produced using an RSBW network, with 30\% of its nodes vaccinated using the ``vaccinate a neighbor'' strategy. For the RBSW networks, the ``vaccinate a neighbor'' strategy also increased the average degree of vaccinated nodes.
+
+This pattern of having a higher average degree of vaccinated nodes under the ``vaccinate a neighbor'' strategy appeared in every simulation run. This makes sense, since, if a node is a neighbor, it has at least one connection already.  
+
+Two versions of the R script used to produce the figure on the previous page are provided below. One version is vectorized, the other is not.
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{exercise\_ch12\_no14.R}}}\hspace{3mm}\hrulefill
+\begin{lstlisting}
+source("genRandomNet.R") # function to generate random networks
+source("genRBSWNet.R") # function to generate random RBSW networks
+source("genVacc.R") # function to perform random vaccination
+source("genVaccNbor.R") # function to perform neighbor vaccination
+source("multiHist.R") # function to plot multiple histograms in one figure
+
+start <- proc.time()
+## Generate 100 random networks with 1225 nodes and average degree 4
+rand_nets.l <- vector("list", length = 100) 
+for (i in 1 : 100) {
+	rand_nets.l[[i]] <- genRandomNet(n = 1225, k = 4)
+}
+
+## Generate 100 RBSW networks with radius 2 and rewiring probability 0.3
+rbsw_nets.l <- vector("list", length = 100)
+for (i in 1 : 100) {
+	rbsw_nets.l[[i]] <- genRBSWNet(n = 1225, r = 2,  p = 0.3)
+}
+
+## Allocate space for average degree vectors
+data_rand_rand.v <- rep(NA, 100) 
+data_rand_nbor.v <- rep(NA, 100)
+data_rbsw_rand.v <- rep(NA, 100)
+data_rbsw_nbor.v <- rep(NA, 100)
+
+## Find the average degree for each of the 200 networks
+## generated above, under random vaccination and "vaccinate
+## a neighbor" strategies
+for (i in 1 : 100) {
+	## Get data for random nets, randomly vaccinated
+	tmp.l <- genVacc(rand_nets.l[[i]], 0.3)	
+	vaccID.v <- tmp.l[[1]]
+	data_rand_rand.v[i] <- mean(colSums(rand_nets.l[[i]][, vaccID.v, drop = FALSE]))
+	
+	## Get data for RBSWs, randomly vaccinated	
+	tmp.l <- genVacc(rbsw_nets.l[[i]], 0.3)
+	vaccID.v <- tmp.l[[1]]
+	data_rbsw_rand.v[i] <- mean(colSums(rbsw_nets.l[[i]][, vaccID.v, drop = FALSE]))
+
+	## Get data for random nets, neighbor vaccination
+	tmp.l <- genVaccNbor(rand_nets.l[[i]], 0.3)
+	vaccID.v <- tmp.l[[1]]
+	data_rand_nbor.v[i] <- mean(colSums(rand_nets.l[[i]][, vaccID.v, drop = FALSE]))
+	
+	## Get data from RBSWs, neighbor vaccination
+	tmp.l <- genVaccNbor(rbsw_nets.l[[i]], 0.3)
+	vaccID.v <- tmp.l[[1]]
+	data_rbsw_nbor.v[i] <- mean(colSums(rbsw_nets.l[[i]][, vaccID.v, drop = FALSE]))
+}
+
+## Plot histograms of the average degree data
+data.l <- list(data_rand_rand.v, data_rand_nbor.v, data_rbsw_rand.v, data_rbsw_nbor.v)
+multiHist(data.l, names.v = c(sprintf("RNet RVac mean = %.3f", mean(data_rand_rand.v)),
+			      sprintf("RNet NVac mean = %.3f", mean(data_rand_nbor.v)),
+			      sprintf("RBSW RVac mean = %.3f", mean(data_rbsw_rand.v)),
+			      sprintf("RBSW NVac mean = %.3f", mean(data_rbsw_nbor.v))),
+	  breaks = 7, xlab = 'Average Degree of Vaccinated Nodes')
+print(proc.time() - start)
+\end{lstlisting}
+
+\vspace{10mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{exercise\_ch12\_no14\_vectorized.R}}}\hspace{3mm}\hrulefill
+\begin{lstlisting}
+source("genRandomNet.R") # function to generate random networks
+source("genRBSWNet.R") # function to generate random RBSW networks
+source("genVacc.R") # function to perform random vaccination
+source("genVaccNbor.R") # function to perform neighbor vaccination
+source("multiHist.R") # function to plot multiple histograms in one figure
+
+## Calculate the average degree of a vaccinated node
+get_avg_degree <- function(A.m, vaccIDs.v)
+{
+	return(mean(colSums(A.m[, vaccIDs.v, drop = FALSE])))
+}
+
+## Get average degree data for a list of networks using a 
+## certain vaccination strategy 
+get_vacc_data <- function(nets.l, vacc_strat_f, prop)
+{
+	## Get IDs of vaccinated nodes (for every network in the list)
+	vaccIDs.l <- lapply(nets.l, FUN = function(A.m, p) vacc_strat_f(A.m, p = prop))
+
+	## Convert the element of vaccIDs.l from lists to vectors
+	vaccIDs.l <- lapply(vaccIDs.l, FUN = function(x.l) unlist(x.l, use.names = FALSE))
+	
+	## Return average degree data for the entire list of networks
+	return(mapply(FUN = function(x, y) get_avg_degree(x, y), nets.l, vaccIDs.l))
+}
+
+start <- proc.time()
+
+## Generate 100 random networks with 1225 nodes and average degree 4
+rand_nets.l <- rep(list(genRandomNet(n = 1225, k = 4)), 100) # vectorized version
+
+## Generate 100 RBSW networks with radius 2 and rewiring probability 0.3
+rbsw_nets.l <- rep(list(genRBSWNet(n = 1225, r = 2, p = 0.3)), 100) # vectorized version
+
+
+## Get average degree data
+data_rand_rand.v <- get_vacc_data(rand_nets.l, genVacc, 0.3)
+data_rand_nbor.v <- get_vacc_data(rand_nets.l, genVaccNbor, 0.3)
+data_rbsw_rand.v <- get_vacc_data(rbsw_nets.l, genVacc, 0.3)
+data_rbsw_nbor.v <- get_vacc_data(rbsw_nets.l, genVaccNbor, 0.3)
+
+data.l <- list(data_rand_rand.v, data_rand_nbor.v, data_rbsw_rand.v, data_rbsw_nbor.v)
+
+## Plot histograms of the average degree data
+multiHist(data.l, names.v = c(sprintf("RNet RVac mean = %.3f", mean(data_rand_rand.v)),
+			      sprintf("RNet NVac mean = %.3f", mean(data_rand_nbor.v)),
+			      sprintf("RBSW RVac mean = %.3f", mean(data_rbsw_rand.v)),
+			      sprintf("RBSW NVac mean = %.3f", mean(data_rbsw_nbor.v))),
+	  breaks = 7, xlab = 'Average Degree of Vaccinated Nodes')
+print(proc.time() - start)
+
+\end{lstlisting}
+
+\vspace{10mm}
+
+The screen-shots below show the timing data for the two versions of the script.
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width = 0.6\textwidth]{slow.png}	
+  \caption{Non-vectorized R Script Timing Data}
+  \label{fig:heat}
+\end{figure}
+
+\vspace{5mm}
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width = 0.6\textwidth]{faster.png}	
+  \caption{Vectorized R Script Timing Data}
+  \label{fig:heat}
+\end{figure}
+
+\noindent Clearly, the vectorized script is significantly faster.
+
+\hfill$\blacksquare$
+
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Ex. 12.15}}}\hspace{3mm}\hrulefill
+
+\noindent The figure below shows four histograms, each one showing the equilibrium infection level distribution after running the SIS-V simulation under a different set of conditions. The following list describes the different simulation conditions:
+\begin{itemize}
+\item \textbf{Black:} Random networks with 30\% of the nodes randomly vaccinated 
+\item \textbf{Gray:} Random networks with 30\% of the nodes vaccinated using the ``vaccinate a neighbor'' strategy
+\item \textbf{Red:} RBSW networks with 30\% of the nodes randomly vaccinated
+\item \textbf{Blue:} RBSW networks with 30\% of the nodes vaccinated using the ``vaccinate a neighbor'' strategy
+\end{itemize}
+
+\begin{figure}[h!]
+\centering
+  \includegraphics[width = 0.6\textwidth]{simul.pdf}	
+  \caption{Histogram of Equilibrium Infection Levels for Different Networks and Vaccination Strategies}
+  \label{fig:heat}
+\end{figure}
+
+For both network types, the ``vaccinate a neighbor'' strategy results in a lower equilibrium infection level (on average). This is most likely due to the fact that ``neighbors'' are better connected, which means vaccinating them is going to slow down the spread of an infection.
+
+The R script used to generated the above histogram is provided below. Note that in spite of the code being vectorized, it still runs quite slowly, due to the fact that it has to run 80 SIS-V simulations. 
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{exercise\_ch12\_no15.R}}}\hspace{3mm}\hrulefill
+\begin{lstlisting}
+source("genRandomNet.R") # function to generate random networks
+source("genRBSWNet.R") # function to generate random RBSW networks
+source("genVaccNbor.R") # function to perform neighbor vaccination
+source("genVacc.R") # function to perform random vaccination
+source("multiHist.R") # function to plot multiple histograms in one figure
+source("DNetSISVAID.R") # function to run SIS-V simulations
+
+## Run SIS-V simulations on all networks in nets.l using
+## vaccination strategy defined by vacc_strat_f;
+## then return equilibrium infection levels for
+## all networks.
+get_SISV_equil_data <- function(nets.l, vacc_strat_f, prop)
+{
+	## Get IDs of vaccinated nodes (for every network in the list)
+	vaccIDs.l <- lapply(nets.l, FUN = function(A.m, p) vacc_strat_f(A.m, p = prop))
+	
+	## Convert the elements of vaccIDs.l from lists to vectors		
+	vaccIDs.l <- lapply(vaccIDs.l, FUN = function(x.l) unlist(x.l, use.names = FALSE))
+	
+	## Return simulation data for entire list of networks		
+	finalIMeans.v <- mapply(FUN = function(x, y) DNetSISVAID(x, vaccinatedID.v = y, phi = 5, numSteps = 200, finalAvgLen = 30, displayEvery = 0), nets.l, vaccIDs.l)
+	return(finalIMeans.v) 
+}
+
+## Generate 20 random networks and 20 random RBSW networks.
+rand_nets.l <- rep(list(genRandomNet(n = 1225, k = 4)), 20)
+rbsw_nets.l <- rep(list(genRBSWNet(n = 1225, r = 2, p = 0.3)), 20)
+
+## Get equilibrium infection level data for all network/vacc. strategy combinations
+data_rand_rand.v <- get_SISV_equil_data(rand_nets.l, genVacc, 0.3) 
+data_rand_nbor.v <- get_SISV_equil_data(rand_nets.l, genVaccNbor, 0.3)
+data_rbsw_rand.v <- get_SISV_equil_data(rbsw_nets.l, genVacc, 0.3)
+data_rbsw_nbor.v <- get_SISV_equil_data(rbsw_nets.l, genVaccNbor, 0.3)
+
+data.l <- list(data_rand_rand.v, data_rand_nbor.v, data_rbsw_rand.v, data_rbsw_nbor.v)
+
+## Plot histograms of the average degree data
+multiHist(data.l, names.v = c(sprintf("RNet RVac mean = %.3f", mean(data_rand_rand.v)),
+                              sprintf("RNet NVac mean = %.3f", mean(data_rand_nbor.v)),
+                              sprintf("RBSW RVac mean = %.3f", mean(data_rbsw_rand.v)),
+                              sprintf("RBSW NVac mean = %.3f", mean(data_rbsw_nbor.v))),
+          breaks = 7, xlab = 'Equilibrium Infection Level')
+
+\end{lstlisting}
+
+\hfill$\blacksquare$
+
+
+\vfill
+\begin{center}
+\pgfornament[width = 75mm,
+             color = black]{89}
+\end{center}
+\begin{center}
+\vspace{-0.6cm}
+\hrulefill \\
+\vspace{-0.7cm}
+\hrulefill
+\end{center}
+
+\end{document}
