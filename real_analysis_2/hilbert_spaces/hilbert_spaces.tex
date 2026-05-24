@@ -1,0 +1,272 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 523 HW 6}
+\begin{document}
+
+\hfill March 25th, 2019
+\begin{center}
+\begin{large}
+\textbf{MAT 524: Functions of a Real Variable II \\
+\vspace{-5mm}
+Homework VI \\}
+\end{large}
+\vspace{-2mm}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\noindent \textbf{{\huge [}{\Large [}} Problem One \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Let $H$ be a Hilbert space. For $y\in H$, define $T_y\in H^{*}$ by $$T_y(x) = \left<x,y\right>.$$ Prove that $\norm{T_y} = \norm{y}.$ Explain why it follows that the map $\phi: H  \longrightarrow H^*$ defined by $y \mapsto T_y$ is one-to-one.
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent Let $y\in H$ and let $S = \left\lbrace M : \left|T_y(x)\right|\leq M \norm{x} \text{ for all } x \in H\right\rbrace$. Note that $\norm{y} \in S,$ by the Cauchy-Schwarz inequality. Thus, to show that $\norm{y} = \inf S = \norm{T_y}$, we simply need to show that $\norm{y}$ is a lower bound for $S$. Suppose otherwise. Then there exists $M\in S$ such that $M < \norm{y}$ and $|T_y(x)| = |\left<x,y\right>| \leq M \norm{x}$ for all $x\in H$. But $|\left<y,y\right>| = \norm{y}^2 > M\norm{y}.$ This contradicts the fact that $M\in S$. Thus, $\norm{y} = \inf S = \norm{T_y}.$ 
+
+To show that $\phi$ is one-to-one, let $y,z\in H$ and suppose $\phi(y) = \phi(z)$. Then for all $x\in H$, we have $\left<x,y\right>=\left<x,z\right>.$ In particular, $\left<y-z, y\right> = \left<y-z, z\right>$, or
+\begin{align}
+    0 &= \left<y-z, y\right> - \left<y-z, z\right> \\
+    &= \left<y-z, y\right> + \overline{(-1)}\left<y-z, z\right> \\
+    &= \left<y-z, y\right> + \left<y-z, -z\right> \\
+    &= \left<y-z, y-z\right>. 
+\end{align}
+But this implies that $y-z = 0$, i.e., $y=z$. Therefore, $\phi$ is one-to-one.
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem Two \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $M$ be a closed subspace of a Hilbert space $H$. Prove that $M = \left(M^{\perp}\right)^{\perp}.$
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent Let $x\in M.$ Then for all $y\in M^{\perp}$, we have $\left<x,y\right> = 0.$ But if $\left<x,y\right>=0$ for all $y\in M^{\perp}$, then $x\in \left(M^{\perp}\right)^{\perp}.$ Thus $M\subseteq \left(M^{\perp}\right)^{\perp}.$ Next, let $x\in\left(M^{\perp}\right)^{\perp}.$ Since $M$ is a closed subspace of $H$, we can uniquely decompose $x$ as $x = a + b$, where $a\in M$ and $b\in M^{\perp}$. Then $\left<x,b\right> = 0$ and $\left<a,b\right> = 0$, so 
+\begin{align}
+    \left<x,b\right> - \left<a,b\right> &= \left<x-a,b\right> \\
+    &= \left<b,b\right> \\
+    &= 0.
+\end{align}
+But then $b = \vec{0}$, i.e., $x=a.$ Therefore, $x\in M$, which means $\left(M^{\perp}\right)^{\perp}\subseteq M$. Thus, $M = \left(M^{\perp}\right)^{\perp}.$
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem Three \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent If $M$ is an arbitrary subset of $H$, prove that $\left(M^{\perp}\right)^{\perp}$ is the smallest closed subspace containing $M$.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent \textit{(i)} We know from the previous problem that $M\subseteq \left(M^{\perp}\right)^{\perp}.$ 
+
+\textit{(ii)} To show that $\left(M^{\perp}\right)^{\perp}$ is a subspace, we first note that $\vec{0}\in\left(M^{\perp}\right)^{\perp}$ (since the inner product of anything with $\vec{0}$ is 0), so $\left(M^{\perp}\right)^{\perp}$ is nonempty. Let $x,y\in\left(M^{\perp}\right)^{\perp}$. Then for all $z\in M^{\perp}$, we have $\left<x,z\right> = 0$ and $\left<y,z\right> = 0.$ But then 
+\begin{align}
+    \left<x,z\right> + \left<y,z\right> &= \left<x+y, z\right> \\
+    &=0.
+\end{align}
+Thus, $x+y\in \left(M^{\perp}\right)^{\perp}$. Next, let $\lambda\in\mathbb{C}.$ Since $\left<x,z\right> = 0$, it follows that
+\begin{align}
+    \left<\lambda x, z\right> &= \lambda\left<x, z\right> \\
+    &= \lambda \cdot0 \\
+    &= 0.
+\end{align}
+Hence, $\lambda x \in \left(M^{\perp}\right)^{\perp}$. Therefore, $\left(M^{\perp}\right)^{\perp}$ is a subspace. 
+
+\textit{(iii)} Next, we show that $\left(M^{\perp}\right)^{\perp}$ is closed. Let $\lbrace x_n \rbrace$ be a sequence in $\left(M^{\perp}\right)^{\perp}$ that converges to $x$. We will show that $x\in\left(M^{\perp}\right)^{\perp}$. Let $y\in M^{\perp}.$ We have
+\begin{align}
+    \left<x,y\right> &= \left<\lim x_n, y\right> \\
+    &= \lim\left<x_n, y\right> \\
+    &= \lim 0 \\
+    &= 0.
+\end{align}
+Therefore, $x\in\left(M^{\perp}\right)^{\perp}$, meaning  $\left(M^{\perp}\right)^{\perp}$ is closed. 
+
+Finally, we will show that $\left(M^{\perp}\right)^{\perp}$ is the smallest set satisfying \textit{(i)} - \textit{(iii)}. Suppose $S$ is a set satisfying \textit{(i)}-\textit{(iii)} that contains $M$. If $x\in S^{\perp}$, then $x$ is orthogonal to everything in $S$. But then $x$ must be orthogonal to everything in $M$, as well, so $x\in M^{\perp}$, i.e., $S^{\perp}\subseteq M^{\perp}$. By similar reasoning, $\left(M^{\perp}\right)^{\perp} \subseteq \left(S^{\perp}\right)^{\perp}.$ Now, let $y\in \left(S^{\perp}\right)^{\perp}$. Since $S$ is a closed subspace, we can write $y = a + b$, where $a\in S$ and $b\in S^{\perp}$. It must be the case that $y\perp b$ and $a\perp b$. So
+\begin{align}
+    \left<y, b\right> &= \left<a+b, b\right> \\
+    &= \left<a, b\right> + \left<b, b\right> \\
+    &= \left<b, b\right> \\
+    &= 0.
+\end{align}
+But then $b=\vec{0}$. So $y = a$, which means $y\in S$. Thus, $\left(M^{\perp}\right)^{\perp}\subseteq\left(S^{\perp}\right)^{\perp}\subseteq S$. Therefore, $\left(M^{\perp}\right)^{\perp}$ is the smallest set satisfying \textit{(i)} - \textit{(iii)}. 
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem Four \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $M$ be a closed subspace of a Hilbert space $H$, and let $P: H \longrightarrow M$ denote the orthogonal projection onto $M$.
+\begin{flushleft}
+\textbf{(a)} Prove that \textit{(i)} $P$ is continuous, \textit{(ii)} $P^2=P$, and that \textit{(iii)} $P$ is self-adjoint, i.e. $\left<Px,y\right> = \left<x,Py\right>$ for all $x,y\in H$. \\
+\textbf{(b)} Conversely, if $Q:H\longrightarrow H$ is a continuous linear operator satisfying $Q^2 = Q$ and which is self-adjoint, prove that the image $Q(H)$ of $Q$ is a closed subspace, and that $Q$ is the orthogonal projection onto $Q(H).$
+\end{flushleft}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent \textbf{(a)} \textit{(i)} Let $x,y\in H$. Since $M$ is a closed subspace of $H$, we can write $x = a + b$, and $y=c + d$, where $a,c\in M$ and $b,d\in M^{\perp}.$ Then $x-y = (a-c) + (b-d)$, and since $M$ and $M^{\perp}$ are closed subspaces, we have $(a-c) \perp (b-d)$. Thus, we can apply the Pythagorean Theorem to obtain 
+\vspace{-0.5cm}
+\begin{align}
+    \norm{x-y}^2 &= \norm{a-c}^2 + \norm{b-d}^2.
+\end{align}
+\vspace{-1cm}
+But then
+\begin{align}
+    \norm{a-c} &= \sqrt{\norm{x-y}^2-\norm{b-d}^2} \\
+    &\leq \sqrt{\norm{x-y}^2} \\
+    &= \norm{x-y}.
+\end{align}
+\vspace{-0.5cm}
+Now, let $\varepsilon > 0$. Choose $\delta = \varepsilon$. Then whenever $\norm{x-y} < \delta$, we have
+
+\begin{align}
+    \norm{Px - Py} &= \norm{a-c} \\
+    &\leq \norm{x-y} \\
+    &< \delta \\
+    &= \varepsilon.
+\end{align}
+Therefore, $P$ is continuous.
+
+\textit{(ii)} Let $x\in H$, where $x=y+z$, with $y\in M$ and $z\in M^{\perp}$. Then
+\begin{align}
+    P^2x &= P(Px) \\
+    &= Py.
+\end{align}
+But since $y\in M$, we have $Py = y = Px$. Thus, $P^2 = P.$
+
+\textit{(iii)} Let $x,y\in H$, where $x = a+b$ and $y=c+d$, with $a,c\in M$ and $b,d\in M^{\perp}$. We have
+\begin{align}
+    \left<Px, y\right> - \left<x, Py\right> &= \left<a, c+d\right> - \left<a+b, c\right> \\
+    &= \left<a,c\right> + \left<a,d\right> - \left<a,c\right> - \left<b,c\right> \\
+    &= \left<a,d\right> - \left<b,c\right> \\
+    &= 0 - 0 \hspace{5mm} \text{(since } a,c\in M \text{ and } b,d\in M^{\perp}\text{)}\\
+    &= 0.
+\end{align}
+Thus, $\left<Px, y\right> = \left<x, Py\right>$. 
+
+\vspace{5mm}
+
+\noindent\textbf{(b)} We begin by showing that $Q(H)$ is a subspace of $H$. Since $\vec{0}\in H$, $Q\left(\vec{0}\right)\in Q(H).$ Thus, $Q(H)$ is nonempty. Let $x,y\in Q(H)$. Then there exist $a,b\in H$ such that $Q(a) = x$ and $Q(b) = y.$ Since $H$ is closed, $a+b\in H$, so $Q(a+b) \in Q(H)$. But $Q(a+b) = Qa + Qb = x + y.$ Therefore, $x+y\in Q(H)$. Let $\lambda\in \mathbb{C}$. Then $\lambda a \in H$. So $Q(\lambda a) = \lambda Q(a) = \lambda x \in Q(H).$ Hence, $Q(H)$ is a subspace of $H$. 
+
+To show that $Q(H)$ is closed, let $\lbrace x_n \rbrace$ be a sequence in $Q(H)$ that converges to $x$. For each $n\in \mathbb{N}$, there exists $a_n\in H$ such that $Q(a_n) = x_n$.  
+
+Since $Q(H)$ is a closed subspace of $H$, for any $x\in H$, we can write $x = y + z$, where $y\in Q(H)$ and $z\in Q(H)^{\perp}.$ We want to show that $Qx = y$. This will be achieved if we can show that $\left<Qx - y, Qx-y\right> = 0$.   
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\end{document}
