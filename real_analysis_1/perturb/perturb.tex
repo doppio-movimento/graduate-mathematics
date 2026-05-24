@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 523 HW 4}
+\begin{document}
+
+\begin{center}
+\begin{large}
+\textbf{MAT 523: Functions of a Real Variable I \\
+Homework VIII \\}
+\end{large}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\noindent \textbf{(1.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Problem}}}\hspace{3mm}\hrulefill
+
+\noindent We showed in class that if $f$ is measurable, then the set $\left\lbrace f=\alpha \right\rbrace$ is measurable for all $\alpha\in\mathbb{R}$. Give an example to show that the converse is false. 
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent 
+
+\pagebreak
+
+\noindent \textbf{(2.)} 
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent There is a strictly increasing continuous function which takes a set of positive measure to a set of zero measure. 
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent 
+
+\vspace{3mm}
+
+\noindent 
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(3.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Let $S$ be any dense subset of $\mathbb{R}$. Let $f:E\rightarrow\mathbb{R}$. Prove that $f$ is measurable if and only if $\lbrace f>\alpha \rbrace$ is measurable for each $\alpha\in S$.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent First suppose $f$ is measurable. Then, by the definition of a measurable function, $\lbrace f>c\rbrace$ is measurable for all $c\in\mathbb{R}$. Since $S\subseteq\mathbb{R}$, it follows that $\lbrace f>\alpha \rbrace$ is measurable for all $\alpha\in S$. 
+
+\vspace{7mm}
+
+\noindent Next, suppose that $\lbrace f > \alpha \rbrace$ is measurable for each $\alpha\in S$. Let $c\in\mathbb{R}$. Since $S$ is dense in $\mathbb{R}$, there exists $s_n\in S$ such that $c < s_n < c + \frac{1}{n}$, for each $n\in\mathbb{N}$. We claim that $$\lbrace f > c \rbrace = \bigcup\limits_{n=1}^{\infty} \lbrace f > s_n \rbrace.$$ To show this, first let $a\in\bigcup\limits_{n=1}^{\infty} \lbrace f > s_n \rbrace$. Then, for some $N\in\mathbb{N}$, we have $a\in\lbrace f > s_N \rbrace$. This implies that $f(a) > s_N$. But $s_N > c$, so $f(a) > c$. Thus, $a\in\lbrace f > c \rbrace$. Next, let $b\in\lbrace f > c\rbrace$. Then $f(b) > c.$ By the Archimedean Property of the real numbers, there exists a natural number $N$ such that $1<N\left[f(b) - c\right]$. Rearrangement of this inequality yields $\frac{1}{N} + c < f(b)$. But $s_N < \frac{1}{N} + c$, so $f(b) > s_N$. Thus, $b\in\lbrace f > s_N\rbrace,$ which implies that $b\in\bigcup\limits_{n=1}^{\infty} \lbrace f > s_n \rbrace$. This proves our claim. Now, by hypothesis $\lbrace f > s_n \rbrace$ is measurable for each $n\in\mathbb{N}$ (since each $s_n\in S$). This makes $\lbrace f > c \rbrace$ a countable union of measurable sets. Therefore, it is measurable, as required. 
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(4.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Let $f:E\rightarrow\mathbb{R}$ be an increasing function, with $E$ measurable. Then $f$ is measurable. 
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent For each $n\in\mathbb{N}$, define $g_n: E \rightarrow \mathbb{R}$ by $g_n(x) = f(x) + \frac{x}{n}$. We first show that each $g_n$ is strictly increasing. Let $x,y\in\mathbb{E}$ with $x<y$. Then, since $f$ is increasing, we have $f(x)\leq f(y)$. Furthermore, $\frac{x}{n} < \frac{y}{n}$. From these two inequalities, we can conclude that $g_n(x) = f(x) + \frac{x}{n} < f(y) + \frac{y}{n} = g_n(y)$, which means $g_n$ is strictly increasing, as required. Now, since each $g_n$ is strictly increasing, it follows that the sets $\lbrace g_n = c \rbrace$ contain at most one element each. This means they are measurable. Thus, by Proposition 1, each $g_n$ is measurable. Next, we show that the $g_n$ converge pointwise to $f(x)$. Let $\varepsilon>0$ and let $x\in E$. Choose $N$ to be the smallest integer greater than $\frac{|x|}{\varepsilon}$. Then, whenever $n>N$, we have
+\begin{align*}
+    |g_n(x) - f(x)| &= \left|f(x)+\frac{x}{n}-f(x)\right| \\
+    &= \frac{|x|}{n} \\
+    &< \frac{|x|}{\frac{|x|}{\varepsilon}} \\
+    &= \varepsilon.
+\end{align*}
+\noindent We have now shown that $\lbrace g_n \rbrace$ is a sequence of measurable functions on $E$ that converges pointwise to $f$ on $E$. Therefore, by Proposition 9, we conclude that $f$ is measurable.
+
+
+\hfill$\blacksquare$
+\end{document}
