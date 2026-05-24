@@ -1,0 +1,271 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{1.5}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{STS 532 HW V}
+\begin{document}
+
+\begin{center}
+\begin{large}
+\textbf{MAT 523: Functions of a Real Variable I \\
+Homework I \\}
+\end{large}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\noindent\mybox{\colorbox{green}{\textbf{ 1. }}}\hspace{3mm}\hrulefill
+
+\noindent Show that $\mathbb{C}$ (the field of complex numbers) is not an ordered field.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+
+\noindent\textbf{Lemma 1A:}
+\noindent $(-1)(-1)=(-1)^2 = 1.$
+
+\noindent\textbf{Proof:}
+\begin{align*}
+(-1)(-1) &= (-1)(-1) + 0 \\
+&= (-1)(-1)+[1 + (-1)] \\
+&= [(-1)(-1)+(-1)] + 1\\
+&= [(-1)(-1)+(-1)(1)] + 1 \\
+&= (-1)[-1+1]+1 \\
+&= (-1)(0) + 1 \\
+&= 0 + 1\\
+&= 1.
+\end{align*}
+
+\hfill$\blacksquare$
+
+\noindent\textbf{Lemma 1B:} Let $F$ be a field and let $a\in F$. Then $-a = (-1)a$.
+
+\noindent\textbf{Proof:} 
+
+\begin{align*}
+(-1)a &= (-1)a + 0 \\
+&= (-1)a + [a+(-a)] \\
+&= [(-1)a+a]+(-a) \\
+&= [a(-1)+a(1)] + (-a) \\
+&= a[(-1) + 1] + (-a) \\
+&= a[0] + (-a) \\
+&= 0 + (-a) \\
+&= -a.
+\end{align*}
+
+\hfill$\blacksquare$
+
+\noindent\textbf{Lemma 1C:} $1>0$.
+
+\noindent\textbf{Proof:} By the Non-triviality Assumption, $1\neq 0$, so suppose $1<0$. Then $0-1$ is positive, and by the first positivity axiom $(0-1)(0-1)$ is positive.  But
+\begin{align}
+(0-1)(0-1) &= [0+(-1)][0+(-1)] \\
+&= [(-1)+0][(-1)+0] \\
+&= (-1)(-1) \\
+&= 1
+\end{align}
+
+\noindent by Lemma 1A. By assumption $1<0$, so $(0-1)(0-1)<0$. This contradicts the fact that $(0-1)(0-1)$ is positive. Therefore, $1>0$. 
+
+\hfill$\blacksquare$
+
+\vspace{5mm}
+\noindent\textbf{Corollary 1A:} $-1 < 0.$
+
+\noindent\textbf{Proof:} Since $1 > 0$ by Lemma 1C, it would be a violation of the second positivity axiom if $-1 > 0$ as well. Therefore, $-1 < 0.$
+
+\hfill$\blacksquare$
+
+\vspace{5mm}
+
+\noindent\textbf{Theorem:} $\mathbb{C}$ is not an ordered field.
+
+\noindent\textbf{Proof:} Suppose $\mathbb{C}$ is an ordered field. Then an order $<$ can be defined on $\mathbb{C}$. Consider $i,0\in\mathbb{C}$. If $0<i$, then, by the first positivity axiom, it must be the case that $0<ii = i^2 = -1$. By Corollary 1A, $-1<0$, so we have a contradiction. If, on the other hand, $i<0$, then $0<-i$, by the second positivity axiom. By the first positivity axiom, it follows that 
+
+\begin{align*}
+0 &< (-i)(-i) \\
+&= [(-1)i][(-1)i] \hspace{10mm} \text{(by Lemma 1B)} \\
+&= [(-1)(-1)][ii] \\
+&= 1i^2 \hspace{10mm} \text{(by Lemma 1A)} \\
+&= i^2 \\
+&= -1.
+\end{align*}
+
+\noindent Again, this is a contradiction. Therefore, $\mathbb{C}$ is not an ordered field. 
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent\mybox{\colorbox{green}{\textbf{2.}}}\hspace{3mm}\hrulefill
+
+\noindent Verify the following:
+\begin{flushleft}
+\textcolor{blue}{(i)} For each real number $a\neq 0$, $a^2>0$. In particular, $1>0$, since $1\neq 0$ and $1 = 1^2$. \\
+\textcolor{blue}{(ii)} For each positive number $a$, its multiplicative inverse $a^{-1}$ also is positive. \\
+\textcolor{blue}{(iii)} If $a>b$, then $ac>bc$ if $c>0$ and $ac<bc$ if $c<0$.
+\end{flushleft}
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent\textcolor{blue}{(i)} \textbf{Proof:} Let $a\in\mathbb{R}\setminus\lbrace 0 \rbrace.$ If $a>0$, then $aa = a^2 > 0$, by the first positivity axiom. If $a<0$, then $0<-a$. Thus, 
+
+\begin{align*}
+0 &< (-a)(-a) \\
+&=[(-1)a][(-1)a] \hspace{10mm} \text{(by Lemma 1B)} \\
+&=[(-1)(-1)][aa] \\
+&= 1a^2 \hspace{10mm} \text{(by Lemma 1A)} \\
+&= a^2.
+\end{align*}
+
+
+\hfill$\blacksquare$
+
+\noindent\textcolor{blue}{(ii)} \textbf{Proof:} Let $a\in\mathbb{R}^{+}$. Suppose $a^{-1}<0.$ Then $0<-a^{-1}.$ Thus, 
+
+\begin{align*}
+0 &< (-a^{-1})(a) \\
+&=[(-1)a^{-1}]a \hspace{10mm} \text{(by Lemma 1B)}\\
+&= (-1)[aa^{-1}] \\ 
+&= (-1)1 \\
+&= -1 \hspace{10mm} \text{(by Lemma 1B)}
+\end{align*}
+
+\noindent By Corollary 1A, $-1<0$, so we have a contradiction. Therefore, $a^{-1}>0$.
+
+\hfill$\blacksquare$
+
+\noindent\textcolor{blue}{(iii)} Let $a,b,c\in\mathbb{R}$ such that $a>b$. Since $a>b$, it follows that $a-b>0.$ Suppose $c>0$. Then, by the first positivity axiom, $c(a-b)>0$. But 
+
+\begin{align*}
+c(a-b)&=c[a+(-b)] \\
+&= ca + c(-b) \\
+&= ac + (-b)c \\
+&= ac + [(-1)b]c \hspace{10mm} \text{(by Lemma 1B)} \\
+&= ac +(-1)[bc] \\
+&=ac - bc.
+\end{align*}
+
+\noindent Thus, $ac-bc>0$, or $ac>bc.$ 
+
+\noindent Now suppose $c<0$.  Then $0<-c$, so $(-c)(a-b)>0$. But 
+\begin{align*}
+(-c)(a-b) &= [(-1)c](a+(-b)) \\
+&= (-1)[c(a+(-b))] \\
+&= (-1)[ca +c(-b)] \\
+&= (-1)[ca + c[(-1)b]] \hspace{10mm} \text{(by Lemma 1B)} \\
+&= (-1)[ac +(-1)[cb]] \\
+&= (-1)(ac) + [(-1)(-1)](bc) \\
+&= (-1)(ac) + 1(bc) \hspace{10mm} \text{(by Lemma 1A)} \\
+&= bc + (-1)(ac) \\
+&= bc - ac.
+\end{align*}
+
+\noindent Therefore, $bc-ac>0$ or $bc>ac$.
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent\mybox{\colorbox{green}{\textbf{3.}}}\hspace{3mm}\hrulefill
+
+\noindent Let $E\subseteq \mathbb{R}$ be a nonempty subset that is bounded below. Show that $E$ has a greatest lower bound and $$\inf E = -\sup \lbrace -x | x \in E\rbrace.$$
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}} \hspace{3mm}\hrulefill
+
+\noindent Let $A = \lbrace -x | x \in E \rbrace$. Since $E$ is bounded below, $A$ must be bounded above. Thus, by the Completeness Axiom, $A$ has a least upper bound $\sup A$. Since $\sup A$ is an upper bound for $A$, $-\sup A$ must be a lower bound for $E$. We show that it is the greatest lower bound for $E$. If not, then there is a lower bound $\ell$ for $E$ with $\ell > -\sup A$. If $\ell$ is a lower bound for $E$, then $-\ell$ is an upper bound for $A$ and satisfies $-\ell < \sup A$.  But this is a contradiction, since there can be no upper bound less than the supremum. Therefore, $-\sup A$ is the greatest lower bound for $E$, i.e., $$\inf E = -\sup A.$$
+
+\hfill$\blacksquare$
+
+\noindent\mybox{\colorbox{green}{\textbf{5.}}}\hspace{3mm}\hrulefill
+
+\noindent Let $E\subset \mathbb{R}$ and suppose $g\in \mathbb{R}$ is an upper bound for $E$. Prove that $g$ is the least upper bound for $E$ if and only if for all $\epsilon > 0$ $E\cap[g-\epsilon, g] \neq \emptyset$, i.e., there exists $x\in E$ such that $$g-\epsilon \leq x \leq g.$$  
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}} \hspace{3mm}\hrulefill
+
+\noindent First, suppose $g = \sup E$, but there exists an $\epsilon > 0$ such that $E\cap[g-\epsilon, g] = \emptyset$. Then all $x\in E$ satisfy either $x< g - \epsilon$ or $x>g$. Clearly, no $x\in E$ can satisfy $x>g$, since $g$ is an upper bound for $E$. Therefore, $x < g - \epsilon$ for all $x\in E$. This makes $g-\epsilon$ an upper bound for $E$; however, $g - \epsilon$ is clearly smaller than $g$, which contradicts the fact that $g$ is the supremum of $E$.
+
+\vspace{5mm}
+
+\noindent Next, if $E\cap[g-\epsilon, g] \neq \emptyset$ for arbitrary $\epsilon > 0$, it follows that there exists an $x\in E$ such that $g-\epsilon \leq x \leq g$ for all $\epsilon > 0$. This means that no matter how small we choose $\epsilon$ to be, there will always be an element of $E$ between $g-\epsilon$ and $g$. Clearly, this means that no number smaller than $g$ can be an upper bound for $E$. Therefore, $g$ is the supremum of $E$.
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent\mybox{\colorbox{green}{\textbf{7.}}}\hspace{3mm}\hrulefill
+
+\noindent Let $A$ be a bounded subset of $\mathbb{R}$. Let $B\subset \mathbb{R}$ be the
+set of upper bounds for $A$. Then $\sup A = \inf B$.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}} \hspace{3mm}\hrulefill
+
+\noindent \textbf{Lemma 7A:} The set of upper bounds for the empty set is all of $\mathbb{R}$.
+
+\noindent \textbf{Proof:} Let $b\in\mathbb{R}$. The statement $$a\in\emptyset \text{ implies } a\leq b$$ is true because the antecedent is false. Therefore, $b$ is an upper bound for $\emptyset$. Since $b$ was an arbitrary real number, we conclude that the set of upper bounds of the empty set is all of $\mathbb{R}$.
+
+\hfill$\blacksquare$
+
+\vspace{5mm}
+
+\noindent \textbf{Theorem:} Let $A$ be a bounded subset of $\mathbb{R}$. Let $B\subset \mathbb{R}$ be the set of upper bounds for $A$. Then $\sup A = \inf B$.
+
+\noindent \textbf{Proof:} If $A = \emptyset$, then $\sup A = -\infty$. By Lemma 7A, the set of upper bounds for $A$ is $B=\mathbb{R}$. The infimum of $\mathbb{R}$ is $\inf \mathbb{R} = -\infty$. So we have $\sup A = \inf B$. Next, suppose $A\neq \emptyset$. Since $A$ is bounded, it is bounded above. By the Completeness Axiom, $A$ must, therefore, have a supremum $\sup A = b_0$. Since $b_0$ is the supremum of $A$, it follows that $b_0<b$ for all other upper bounds $b$ of $A$. That is, $b_0<b$ for all $b\in B\setminus\lbrace b_0 \rbrace$. This further implies that $B$ is bounded below and $b_0$ is a lower bound for $B$. Since $B$ is bounded below, it must have an infimum $\inf B$. We show that $\inf B = b_0$. Let $\beta$ be a lower bound for $B$. Suppose $\beta>b_0$. Then $\beta$ is not a lower bound for $B$ since $b_0\in B$ and $b_0<\beta$. This is a contradiction. Therefore, $b_0 = \inf B = \sup A$.
+
+\hfill$\blacksquare$
+\end{document}
