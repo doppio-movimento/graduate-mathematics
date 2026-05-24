@@ -1,0 +1,259 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 524 HW 2}
+\begin{document}
+
+\hfill Feb. 08, 2019
+\begin{center}
+\begin{large}
+\textbf{MAT 524: Functions of a Real Variable II \\
+\vspace{-5mm}
+Homework II \\}
+\end{large}
+\vspace{-2mm}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\vspace{5mm}
+
+\noindent \textbf{{\huge [}{\Large [}} Problem No. 1 \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Prove that the function 
+$$
+f(x) =
+\begin{cases}
+x\sin(1/x) & x\in(0,1]\\
+0 & x=0
+\end{cases}
+$$
+does not have bounded variation on $[0,1]$. Explain why this is a uniformly continuous function that is not absolutely continuous.
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent Let $n\in\mathbb{N}$ and let $P_n = \left\lbrace 0, \frac{2}{2n\pi}, \frac{2}{(2n-1)\pi}, \ldots, \frac{2}{3\pi}, \frac{2}{2\pi}, 1\right\rbrace$. Then, since $\sin\left(\frac{k\pi}{2}\right)$ is $0$ for even $k$ and $1$ for odd $k$,
+\begin{align}
+    V(f, P_n) &= \frac{2}{(2n-1)\pi} + \frac{2}{(2n-1)\pi} + \frac{2}{(2n-3)\pi} + \frac{2}{(2n-3)\pi} + \ldots + \sin(1) \\
+    &= \frac{4}{(2n-1)\pi} + \frac{4}{(2n-3)\pi} + \ldots + \sin(1).
+\end{align}
+\noindent Now, note that as $n$ increases without bound $V(f, P_n)$ becomes $\sin(1) + \frac{4}{\pi}\sum\limits_{m=1}^{\infty}\frac{1}{2m-1}$. However, 
+\begin{align}
+    \sum\limits_{m=1}^{\infty}\frac{1}{2m-1} &> \sum\limits_{m=1}^{\infty}\frac{1}{2m} \\
+    &= \frac{1}{2}\sum\limits_{m=1}^{\infty}\frac{1}{m} \\
+    &= \infty.
+\end{align}
+
+\vspace{-3mm}
+
+\noindent Thus, $TV_{[0,1]}(f) = \sup\left\lbrace V(f,P) \hspace{1mm}|\hspace{1mm} P \text{ a partition of } [0,1] \right\rbrace = \infty$, meaning $f$ does not have bounded variation on $[0,1]$.
+
+To show that $f$ is uniformly continuous on $[0,1]$ (a compact interval), we simply need to show that it is continuous on $[0,1]$ (because any function that is continuous on a compact interval is uniformly continuous on that interval by the Heine-Cantor Theorem). The only point at which the continuity of $f$ is questionable is at $x=0$. To show $f$ is, indeed, continuous at $x=0$, let $\varepsilon > 0$. Choose $\delta = \varepsilon$. Then whenever $|x-0|=|x|<\delta$, we have 
+\begin{align}
+    |f(x)-f(0)| &= \left|x\sin\left(1/x\right) - 0\right| \\
+    &= \left|x\sin\left(1/x\right)\right| \\
+    &\leq |x| \\
+    &<\delta \\
+    &=\varepsilon.
+\end{align}
+Thus, $f$ is continuous on $[0,1]$ and, therefore, uniformly continuous on $[0,1].$
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem No. 2 \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $f: [a,b] \longrightarrow \mathbb{R}$ be a function of bounded variation. For $x\in[a,b]$, define
+$$V_f^+(x) = \sup\limits_{P}\sum\left[f(x_{i+1}) - f(x_i)\right]^+,$$ where the $\sup$ is over all partitions $P$ of $[a,x]$, and likewise 
+$$V_f^-(x) = \sup\limits_P\sum\left[f(x_{i+1})-f(x_i)\right]^-.$$
+
+\noindent\textbf{(a)} Show that $V_f^+(x) - V_f^-(x) = f(x) - f(a)$ for all $x\in[a,b].$
+\\
+\noindent\textbf{(b)} Show that $V_f^+(x) + V_f^-(x) = TV_{[a,x]}(f)$ for all $x\in[a,b].$
+\\
+\noindent\textbf{(c)} Show that $$\int_a^b|f^{\prime}|\leq TV_{[a,b]}(f).$$
+\\
+\noindent\textbf{(d)} Suppose now that $f$ is absolutely continuous. Prove that the reverse inequality holds, and hence $$\int_a^b |f^{\prime}| = TV_{[a,b]}(f).$$
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent\textcolor{blue}{\textbf{(a)}} Let $x_0 = a < x_1 < \ldots < x_n = x$ be some partition of $[a,x]$. We have
+\begin{align}
+    \sum\limits_{i=1}^n\left[f(x_{i+1}) - f(x_i)\right]^+ - \sum\limits_{i=1}^{n}\left[f(x_{i+1}) - f(x_i)\right]^- &= \sum\limits_{i=1}^n\left[f(x_{i+1}) - f(x_i)\right] \\
+    &= f(x_n) - f(x_0) \\
+    &= f(x) - f(a),
+\end{align}
+due to the telescoping nature of the summation. Thus, we can write 
+\begin{align}
+    \sum\limits_{i=1}^{n-1}\left[f(x_{i+1}) - f(x_i)\right]^+ &= \sum\limits_{i=1}^{n-1}\left[f(x_{i+1}) - f(x_i)\right]^- + f(x) - f(a). \label{eq1}
+\end{align}
+Since $f(x) - f(a)$ is a constant (if we fix $x$), we can take the supremum over all possible partitions of $[a,x]$ on both sides of Equation (\ref{eq1}) to obtain
+\begin{align}
+    V_f^+(x) &= V_f^-(x) + f(x)-f(a),
+\end{align}
+which, of course, implies that 
+\begin{align}
+    V_f^+(x) - V_f^-(x) &= f(x) - f(a),
+\end{align}
+as required.
+
+\vspace{5mm}
+
+\noindent\textcolor{blue}{\textbf{(b)}} Again, let $x_0=a < x_1 < \ldots < x_n = x$ be some partition of $[a,x]$. We have
+\begin{align}
+    \sum\limits_{i=1}^{n-1}\left[f(x_{i+1}) - f(x_i)\right]^+ + \sum\limits_{i=1}^{n-1}\left[f(x_{i+1}) - f(x_i)\right]^- &= \sum\limits_{i=1}^{n-1}\left|f(x_{i+1}) - f(x_i)\right|. \label{eq2}
+\end{align}
+We can rewrite Equation (\ref{eq2}) as 
+\begin{align}
+    2\sum\limits_{i=1}^{n-1}\left[f(x_{i+1}) - f(x_i)\right]^+ &= \sum\limits_{i=1}^{n-1}\left|f(x_{i+1}) - f(x_i)\right| + \sum\limits_{i=1}^{n-1}\left[f(x_{i+1}) - f(x_i)\right]^+ - \sum\limits_{i=1}^{n-1}\left[f(x_{i+1}) - f(x_i)\right]^- \\
+    &= \sum\limits_{i=1}^{n-1}\left|f(x_{i+1}) - f(x_i)\right| + f(x) - f(a).
+\end{align}
+We now take the supremum over all possible partitions of $[a,x]$ on both sides to obtain
+\begin{align}
+    2V_f^+(x) &= TV_{[a,x]}(f) + f(x) - f(a) \\
+    &= TV_{[a,x]}(f) + V_f^+(x) - V_f^-(x). \label{eq3}
+\end{align}
+Rearranging Equation (\ref{eq3}) yields
+\begin{align}
+    V_f^+(x) + V_f^-(x) &= TV_{[a,x]}(f),
+\end{align}
+as required.
+
+\vspace{5mm}
+
+\noindent\textcolor{blue}{\textbf{(c)}} By Part \textbf{(a)}, we can write $f(x) = V_f^+(x) - V_f^-(x) + f(a).$ Since $V_f^+(x)$ and $V_f^-(x)$ are monotone increasing functions on $[a,b]$, Lebesgue's Theorem guarantees that their derivatives exist almost everywhere on $[a,b]$. Thus, the derivative of $f$ exists almost everywhere on $[a,b]$, and
+\begin{align}
+    f^{\prime} &= {V_f^+}^{\prime} - {V_f^-}^{\prime},
+\end{align}
+by the linearity of differentiation. Now, by Corollary 4, both ${V_f^+}^{\prime}$ and ${V_f^-}^{\prime}$ are integrable on $[a,b]$ and
+\begin{align}
+\int_a^b {V_f^+}^{\prime} &\leq V_f^+(b) - V_f^+(a) \label{eq4} \\
+\int_a^b {V_f^-}^{\prime} &\leq V_f^-(b) - V_f^-(a). \label{eq5}
+\end{align}
+Summing Equations (\ref{eq4}) and (\ref{eq5}), we obtain 
+\begin{align}
+    \int_a^b \left({V_f^+}^{\prime} + {V_f^-}^{\prime}\right) &\leq V_f^+(b) + V_f^-(b) - \left(V_f^+(a) + V_f^-(a)\right) \\
+    &= TV_{[a,b]}(f) - TV_{[a,a]}(f) \\
+    &= TV_{[a,b]}(f),
+\end{align}
+by Part \textbf{(b)} and the linearity of the Lebesgue integral. Since $V_f^+$ and $V_f^-$ are increasing functions, their derivatives are always positive. Thus,
+\begin{align}
+    TV_{[a,b]}(f) &=  \int_a^b \left({V_f^+}^{\prime} + {V_f^-}^{\prime}\right) \\&=  \int_a^b \left(\left|{V_f^+}^{\prime}\right| + \left|{V_f^-}^{\prime}\right|\right) \\
+    &\geq  \int_a^b \left|{V_f^+}^{\prime} - {V_f^-}^{\prime}\right| \\
+    &= \int_a^b \left|f^{\prime}\right|,
+\end{align}
+as needed.
+
+\vspace{5mm}
+
+\noindent\textcolor{blue}{\textbf{(d)}} Let $x_0 = a < x_1 < \ldots < x_n = b$ be some partition $P$ of $[a,b]$. Let us now consider
+\begin{align}
+V(f, P)&= \sum\limits_{i=1}^{n}\left|f(x_i) - f(x_{i-1})\right|, \label{eq6}
+\end{align}
+the variation of $f$ over this partition. Since $f$ is absolutely continuous, we can rewrite the variation of $f$ over $P$ using the Fundamental Theorem of Calculus; that is,
+\begin{align}
+    V(f, P)&= \sum\limits_{i=1}^{n}\left|f(x_i) - f(x_{i-1})\right| \\
+    &=\sum\limits_{i=1}^{n}\left|\int_{x_{i-1}}^{x_i} f^{\prime} \right|.
+\end{align}
+Now,
+\begin{align}
+    \sum\limits_{i=1}^{n}\left|\int_{x_{i-1}}^{x_i} f^{\prime} \right| &\leq \sum\limits_{i=1}^{n}\int_{x_{i-1}}^{x_i} \left| f^{\prime} \right| \\
+    &= \int_{a}^{b} \left|f^{\prime}\right|.
+\end{align}
+Thus, we have that 
+\begin{align}
+    V(f,P) \leq \int_a^b \left|f^{\prime}\right|. \label{eq7}
+\end{align}
+Taking the supremum over all partitions of $[a,b]$ on both sides of (\ref{eq7}) yields
+\begin{align}
+    TV_{[a,b]}(f) \leq \int_a^b \left| f^{\prime} \right|,
+\end{align}
+as desired.
+
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem No. 3 \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Suppose $f:[a,b]\rightarrow\mathbb{R}$ is absolutely continuous and monotone. Prove that for any set $D\subset[a,b]$ of measure $0$, the image $f(D)$ also has measure $0$
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent Let $D\subset[a,b]$ with $m(D) = 0$, and let $\varepsilon > 0$. Since $f$ is absolutely continuous, there exists a $\delta > 0$ (depending on $\varepsilon$), which satisfies the requirements in the definition of absolute continuity. Furthermore, since $m(D) = 0$, we can construct an open cover $\mathcal{O} = \bigcup\limits_{n=1}^{\infty}(a_n, b_n)$ of $D$ satisfying $\sum\limits_{n=1}^{\infty}\left[b_n - a_n \right] < \delta$. For this collection of intervals the absolute continuity of $f$ guarantees that $\sum\limits_{n=1}^{\infty}\left|f(b_n) - f(a_n)\right|<\varepsilon.$ But, since $f$ is monotone, 
+\begin{align}
+\sum\limits_{n=1}^{\infty}|f(b_n)-f(a_n)| = m(f(\mathcal{O})).
+\end{align}
+Now, $f(D) \subseteq f(\mathcal{O})$, so $m(f(D)) \leq m(f(\mathcal{O}))$. Thus, $m(f(D)) < \varepsilon$. Since $\varepsilon$ was arbitrary, this implies that $m(f(D)) = 0.$
+
+\hfill$\blacksquare$
+
+\end{document}
