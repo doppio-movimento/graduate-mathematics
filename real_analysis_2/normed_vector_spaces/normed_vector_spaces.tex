@@ -1,0 +1,222 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 523 HW 5}
+\begin{document}
+
+\hfill March 6th, 2019
+\begin{center}
+\begin{large}
+\textbf{MAT 524: Functions of a Real Variable II \\
+\vspace{-5mm}
+Homework V \\}
+\end{large}
+\vspace{-2mm}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\noindent \textbf{{\huge [}{\Large [}} Problem One \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Let $V$ be a normed vector space over $\mathbb{R}$. For a linear functional $T:V\rightarrow\mathbb{R}$, show that the following are equivalent.
+\begin{flushleft}
+(a) $T$ is bounded \\
+(b) $T$ is continuous \\
+(c) $T$ is continuous at $\vec{0}$.
+\end{flushleft}
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent \textcolor{blue}{$\left\lbrace \text{(a)} \Rightarrow \text{(b)} \right\rbrace$:} Suppose $T$ is bounded. Then there exists a finite real number $M\geq 0$ such that for all $v\in V$, \begin{align}
+    |Tv| \leq M \norm{v}.
+\end{align}
+Let $\varepsilon > 0$. Choose $\delta = \frac{\varepsilon}{M} > 0.$ Whenever $v,w\in V$ and $\norm{v-w} < \delta$, we have
+\begin{align}
+    |Tv - Tw| &= |T(v-w)|\\
+    &\leq M \norm{v-w} \\
+    &< M\delta \\
+    &= \frac{M\varepsilon}{M} \\
+    &= \varepsilon.
+\end{align}
+Therefore, $T$ is continuous.  
+
+\pagebreak
+
+\noindent \textcolor{blue}{$\left\lbrace \text{(b)} \Rightarrow \text{(a)} \right\rbrace$:} \textbf{(Based on the lecture notes)} Suppose $T$ is continuous. Let $\varepsilon = 1$. Then there exists $\delta>0$ such that, for all $v\in V$, if $\norm{v}\leq \delta$, then $|Tv|<1.$ For nonzero $v$, consider the vector $w=\frac{\delta}{\norm{v}}v.$ Since $\norm{w} = \delta$, it follows (by continuity) that
+\begin{align}
+    |Tw| &= \left|T\left(\frac{\delta}{\norm{v}}v\right)\right| \\
+    &= \frac{\delta}{\norm{v}}|Tv| \\
+    &< 1.
+\end{align}
+Rearranging (9) yields 
+\begin{align}
+    |Tv| < \frac{1}{\delta}\norm{v}.
+\end{align}
+Thus, $T$ is bounded.
+
+\vspace{5mm}
+
+\noindent \textcolor{blue}{$\left\lbrace \text{(b)} \Rightarrow \text{(c)} \right\rbrace$:} If $T$ is continuous, then it is continuous at $\vec{0}$.
+
+\vspace{5mm}
+
+\noindent \textcolor{blue}{$\left\lbrace \text{(c)} \Rightarrow \text{(b)} \right\rbrace$:} Suppose $T$ is continuous at $\vec{0}$. Let $\varepsilon>0$. There exists $\delta>0$ such that for all $v\in V$, if $\norm{v-\vec{0}} = \norm{v} <\delta$, then $|Tv-T\vec{0}| = |Tv|<\varepsilon.$ Let $x,y\in V$. Then $x-y\in V$, and, if $\norm{x-y-\vec{0}} = \norm{x-y} < \delta$, then $|T(x-y)-T\vec{0}| = |Tx-Ty|<\varepsilon$. Therefore, $T$ is continuous. 
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem Two \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $V$ be a normed vector space over $\mathbb{R}$ and let $V^*$ be its dual (the set of bounded linear functionals on $V$) with the operator norm $$\norm{T} = \inf \lbrace M : |Tv| \leq M\norm{v} \text{ for all } v \in V \rbrace.$$
+\textbf{(a)} Show that the above is indeed a norm.\\
+\textbf{(b)} Show that $\norm{T} = \sup\limits_{\norm{v}=1} |Tv|.$ \\
+\textbf{(c)} Show that $V^*$ is complete (so it is a Banach space).
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent 
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} Problem Three \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Let $V$ be a normed vector space. Show that the closure of any subspace of $V$ is a subspace.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent Let $W$ be a subspace of $V$, and let $\overline{W}$ be the closure of $W$. First note that $W\subseteq\overline{W}$, meaning anything that is an element of $W$ is also an element of $\overline{W}$. Furthermore, $\overline{W}$ is nonempty, since $W$ is nonempty. 
+
+\vspace{3mm}
+
+\noindent Now we show that $\overline{W}$ is closed under addition. Let $x,y\in\overline{W}$. Suppose $x,y\in W$. Then $x+y\in W$. Hence $x+y\in\overline{W}.$ Next, suppose (without loss of generality) that $x\in W$ and $y\in \overline{W}\setminus W$. Let $\varepsilon > 0$. Since $y$ is a limit point of $W$, there exists $w\in W$ such that $\norm{w-y}<\varepsilon$. But we can rewrite this inequality as 
+\begin{align}
+    \norm{w-y} &= \norm{w-y+x-x} \\
+    &= \norm{w+x - (x+y)} \\
+    &< \varepsilon.
+\end{align}
+Since $w+x\in W$, it follows that $x+y$ is a limit point of $W$, i.e., $x+y\in\overline{W}$. Finally, suppose that $x,y \in \overline{W}\setminus W$. Let $\varepsilon > 0$. There exist $w_1,w_2\in W$ such that $\norm{w_1-x}< \varepsilon/2$ and $\norm{w_2-y}<\varepsilon/2$. Thus,
+\begin{align}
+    \norm{w_1+w_2 - (x+y)} &= \norm{w_1 - x + w_2 - y} \\
+    &\leq \norm{w_1 - x} + \norm{w_2 - y} \\
+    &<\varepsilon/2 + \varepsilon/2 \\
+    &= \varepsilon.
+\end{align}
+Since $w_1+w_2\in W$, this implies that $x+y\in\overline{W}.$
+
+\vspace{3mm}
+
+\noindent Now we show that $\overline{W}$ is closed under scalar multiplication. Let $\lambda\in\mathbb{C}$ and let $x\in\overline{W}$. Let $\varepsilon > 0$. Then there exists $w\in W$ such that $\norm{w-x} < \varepsilon/|\lambda|.$ Thus
+\begin{align}
+    \norm{\lambda w - \lambda x} &= |\lambda|\norm{w-x} \\
+    &< |\lambda|\left(\varepsilon/|\lambda|\right) \\
+    &= \varepsilon.
+\end{align}
+Since $\lambda w\in W$, it follows that $\lambda x\in\overline{W}$.
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\end{document}
