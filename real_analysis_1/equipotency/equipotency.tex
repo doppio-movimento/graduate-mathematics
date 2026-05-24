@@ -1,0 +1,225 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{1.5}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 523 HW 2}
+\begin{document}
+
+\begin{center}
+\begin{large}
+\textbf{MAT 523: Functions of a Real Variable I \\
+Homework II \\}
+\end{large}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\noindent \textbf{(1.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Theorem}}}\hspace{3mm}\hrulefill
+
+\noindent Let $a$ and $b$ be real numbers. 
+
+\begin{flushleft}
+\textcolor{blue}{(i)} If $ab=0$, then $a=0$ or $b=0$. \\
+\textcolor{blue}{(ii)} $a^2 - b^2 = (a-b)(a+b)$ and if $a^2=b^2$, then $a=b$ or $a=-b$. \\
+\textcolor{blue}{(iii)} Let $c$ be a positive real number. Define $E=\lbrace x \in \mathbb{R} | x^2 < c.\rbrace$ Verify that $E$ is nonempty and bounded above. Define $z = \sup E$. Show that $z^2=c.$ Use part (ii) to show that there is a unique $x>0$ for which $x^2=c$. It is denoted by $\sqrt{c}$. 
+\end{flushleft}
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+\noindent\textcolor{blue}{(i)} Suppose $a\neq 0$ and $b\neq 0$. 
+
+\noindent \textbf{Case 1:} Suppose $a>0$ and $b>0$. Then, by the first positivity axiom, $ab>0$, hence $ab\neq 0$.
+
+\noindent \textbf{Case 2:} Suppose $a<0$ and $b<0$. Then $(-a)(-b) > 0$. But
+\begin{align*}
+(-a)(-b) &= [(-1)a][(-1)b] \\
+&= (-1)^2(ab) \\
+&= 1ab \\
+&= ab.
+\end{align*}
+
+\noindent Therefore, $ab>0$, so $ab\neq 0$.
+
+\noindent\textbf{Case 3:} Suppose, without loss of generality, that $a>0$ and $b<0$. Then $a(-b) > 0$. But
+\begin{align*}
+a(-b) &= a[(-1)b] \\
+&=(-1)[ab] \\
+&= -ab.
+\end{align*}
+
+\noindent So $-ab > 0$, which implies that $ab < 0$, i.e., $ab\neq 0$.
+
+\hfill$\blacksquare$
+
+\vspace{5mm}
+
+\noindent \textcolor{blue}{(ii)} 
+\begin{align*}
+a^2 - b^2 &= [a^2 + 0] - b^2 \\
+&=[a^2 +(ab-ab)] - b^2 \\
+&=[a^2+ab] + [-(ab)-b^2] \\
+&=a(a+b) + [(-1)ab + (-1)b^2] \\
+&=a(a+b) + (-1)[ab+b^2] \\
+&=a(a+b) - b(a+b) \\
+&=(a+b)a+(a+b)(-b) \\
+&=(a+b)(a-b).
+\end{align*}
+
+\vspace{5mm}
+
+\noindent \textcolor{blue}{(iii)} Note that $0^2 = 0$ is less than any positive real number $c$, so $0\in E$. Thus $E\neq\emptyset$. To show that $E$ is bounded above, we consider two cases. 
+
+\noindent\textbf{Case 1:} Suppose $c \in (0,1)$. Then $\frac{1}{c} > 1.$ Note that if $x^2 < c$, then $-1 < x < 1$. Thus, $E$ is bounded above by $\frac{1}{c}.$ 
+
+\vspace{3mm}
+
+\noindent\textbf{Case 2:} Suppose $c\in [1,\infty).$ If $x^2 < c$, then it is also true that $-c < x < c.$ Thus, $E$ is bounded above by $c$.
+
+\vspace{3mm}
+
+\noindent To show that $z^2 = c$, we first show that $E$ contains positive elements. 
+
+\pagebreak
+
+\noindent \textbf{(2.)} 
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Theorem}}}\hspace{3mm}\hrulefill 
+
+\noindent The irrational numbers are dense in $\mathbb{R}$. 
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent Let $a,b$ be real numbers with $b>a$. Then $\frac{b}{\sqrt{2}}>\frac{a}{\sqrt{2}}$. Since $\mathbb{Q}$ is dense in $\mathbb{R}$, there exists a rational number $r$ satisfying $$\frac{b}{\sqrt{2}} > r > \frac{a}{\sqrt{2}}.$$ Multiplying the above inequality by $\sqrt{2}$ yields $$b>r\sqrt{2}>a,$$ since $\sqrt{2}>0.$ We now show that $r\sqrt{2}$ is irrational. If not, then we can write $$r\sqrt{2} = \frac{p}{q},$$ where $p,q\in\mathbb{Z}$ and $q\neq 0$. Furthermore, since $r$ is rational, we can write $r=\frac{s}{t}$, where $s,t\in\mathbb{Z}$, and $t\neq 0$. Thus, $$\frac{s}{t}\sqrt{2}=\frac{p}{q},$$ i.e., $$\sqrt{2} = \frac{pt}{qs}.$$  But $\frac{pt}{qs}$ is rational, which contradicts the fact that $\sqrt{2}$ is irrational. Therefore, $r\sqrt{2}$ is irrational. Hence, the irrational numbers are dense in $\mathbb{R}.$
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(5.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Theorem}}}\hspace{3mm}\hrulefill
+
+\noindent A nondegenerate interval of real numbers fails to be finite.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent Let $I$ be a nondegenerate interval of real numbers. Suppose $I$ is finite. Since $I$ is nondegenerate, it is nonempty. Therefore, there must be some $n\in\mathbb{N}$ such that $I$ is equipotent to the set $\lbrace1, 2, 3, \ldots, n\rbrace$, which means we can list every element of $I$ (in ascending order): $$ i_1, i_2, i_3, \ldots, i_n.$$ Now, take $i_1$ and $i_2$. Since the elements of $I$ were listed in ascending order, we have $i_2 > i_1$. By virtue of $\mathbb{Q}$ being dense in $\mathbb{R}$, it must be the case that there is an $r\in\mathbb{Q}$ satisfying $i_1 < r < i_2$. Clearly, $r$ was not in our enumeration of $I$ above. But by the definition of an interval of real numbers, $r$ must be in $I$. This is a contradiction. Therefore, $I$ is not finite.
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(6.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Theorem}}}\hspace{3mm}\hrulefill
+
+\noindent Suppose $X$ is infinite. Then $X$ is equipotent with $X\cup\lbrace\alpha\rbrace$.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent If $X$ is countable, then its elements can be listed: $$x_1, x_2, x_3, \ldots$$ The elements of $X\cup\lbrace \alpha \rbrace$ can also be listed:$$\alpha, x_1, x_2, x_3, \ldots$$ Define $f:X\longrightarrow X\cup\lbrace\alpha\rbrace$ by the function $$f(x_n) = \begin{cases}
+\alpha & \text{ if } n=1 \\
+x_{n-1} & \text{ if } n \in \mathbb{N}\setminus\lbrace 1 \rbrace.
+\end{cases}
+$$
+
+\noindent Clearly, $f$ is a bijection. Therefore, $X$ is equipotent with $X\cup\lbrace\alpha\rbrace$.
+
+
+\vspace{3mm}
+
+\noindent If $X$ is uncountable, we can construct a countable subset of $X,$ $$C = \lbrace x_1, x_2, x_3, \ldots\rbrace \subset X.$$ Let $f:X\longrightarrow X\cup\lbrace \alpha \rbrace$ be defined as follows:  \textbf{(1)} On $C$,
+
+$$f(x_n) = \begin{cases}
+\alpha & \text{ if } n=1 \\
+x_{n-1} & \text{ if } n \in \mathbb{N}\setminus\lbrace 1 \rbrace.
+\end{cases}
+$$
+
+\noindent \textbf{(2)} On $X\setminus C$, $$f(x) = x.$$ Then $f$ is a bijection.  Therefore, $X$ is equipotent with $X\cup\lbrace\alpha\rbrace.$
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(7.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Theorem}}}\hspace{3mm}\hrulefill
+
+\noindent Any two nondegenerate intervals of real numbers are equipotent.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent Let $a,b,c,d$ be real numbers such that $a<b$ and $c<d$. Consider the open intervals $(a,b)$ and $(c,d)$. Both are infinite, by Problem 5. Applying the result of Problem 6 to both intervals, we see that $(a,b)$ is equipotent to $[a,b)$, $(a,b]$, and $[a,b]$. Since equipotence is an equivalence relation, all of the above intervals are equipotent to each other. Similarly, $(c,d)$ is equipotent to $[c,d)$, $(c,d]$, and $[c,d]$, and these intervals are all equipotent to each other (again, by virtue of equipotence being an equivalence relation). If we can show that $[a,b]$ is equipotent to $[c,d]$, we will be able to conclude that all the intervals listed above are equipotent to each other. To this end, we construct a bijection between $[a,b]$ and $[c,d]$. Consider the function $f:[a,b]\longrightarrow[c,d]$ defined by $$f(x) = \left(\frac{c-d}{a-b}\right)x+\frac{ad-bc}{a-b}.$$ Clearly, $f$ is one-to-one. To show that $f$ is onto, let $y\in[c,d]$. Solving for $x$ in the equation $$\left(\frac{c-d}{a-b}\right)x+\frac{ad-bc}{a-b} = y$$ yields (after many tedious manipulations) $$x=\frac{b(y-c)-a(y-d)}{d-c}.$$ We need to show that this is an element of $[a,b].$ If not, then either $$\frac{b(y-c)-a(y-d)}{d-c} < a$$ or $$\frac{b(y-c)-a(y-d)}{d-c} > b.$$ But from the first inequality, we can conclude that $y<c$, which is impossible since $y\in[c,d]$ and must therefore satisfy $y\geq c$. From the second inequality, we can conclude that $y>d$, which is also impossible, since $y\leq d$. Thus, $$x=\frac{b(y-c)-a(y-d)}{d-c}\in[a,b].$$ Therefore, $f$ is onto and, hence, a bijection. This means $[a,b]$ is equipotent to $[c,d]$. Thus, all of the intervals listed above are equipotent to each other. 
+
+\hfill$\blacksquare$
+
+\end{document}
