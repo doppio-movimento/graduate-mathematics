@@ -1,0 +1,151 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 523 HW 4}
+\begin{document}
+
+\hfill Jan. 30th, 2019
+\begin{center}
+\begin{large}
+\textbf{MAT 524: Functions of a Real Variable II \\
+\vspace{-5mm}
+Homework I \\}
+\end{large}
+\vspace{-2mm}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\noindent \textbf{{\huge [}{\Large [}} R \& F: Sec. 4.4, Pr. 28 \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Let $f$ be integrable over $E$ and let $C$ be a measurable subset of $E$. Then $$\int_{C}f = \int_{E} f\chi_C.$$
+
+\vspace{-2mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+\noindent Since $f$ is integrable over $E$ so is $|f|$, by definition. Clearly, $|f\chi_C|\leq |f|$ on $E$, so by the Integral Comparison Test (Proposition 16), it follows that $f\chi_C$ is integrable over $E$. Thus, we can write
+\begin{align}
+    \int_{E} f\chi_C &= \int_{E}\left[f\chi_C\right]^+ - \int_{E}\left[f\chi_C \right]^- \\
+    &= \int_{E} \max\lbrace f\chi_C, 0\rbrace - \int_{E} \max\lbrace -f\chi_C, 0\rbrace \\
+   &= \int_{E} \max\lbrace f, 0\rbrace\chi_C - \int_{E} \max\lbrace -f, 0\rbrace\chi_C \\
+    &= \int_{E} f^+\chi_C - \int_{E} f^-\chi_C.
+\end{align}
+The functions $f^+$ and $f^-$ are both non-negative, so using the theory from Section 4.3 of Royden and Fitzpatrick, we see that
+\begin{align}
+    \int_{E} f^+\chi_C - \int_{E} f^-\chi_C &= \int_{C} f^+ - \int_{C} f^- \\
+    &= \int_{C} f.
+\end{align}
+Therefore, $\int_C f = \int_E f\chi_C,$ as required.
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\pagebreak
+
+\noindent \textbf{{\huge [}{\Large [}} R \& F: Sec. 4.4, Pr. 29 \textbf{{\Large ]}{\huge ]}}{\Large \textbf{:}}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Problem}}}\hspace{3mm}\hrulefill 
+
+\noindent For a measurable function $f$ on $[1,\infty)$ which is bounded on bounded sets, define $a_n=\int_{n}^{n+1}f$ for each natural number $n$. \textcolor[rgb]{0.1,0.5,0.4}{\textbf{(a)}} Is it true that $f$ is integrable over $[1,\infty)$ if and only if the series $\sum\limits_{n=1}^{\infty} a_n$ converges? \textcolor[rgb]{0.1,0.5,0.4}{\textbf{(b)}} Is it true that $f$ is integrable over $[1,\infty)$ if and only if the series $\sum\limits_{n=1}^{\infty} a_n$ converges absolutely?
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{yellow}{\textbf{Solution}}}\hspace{3mm}\hrulefill
+
+    \noindent \textcolor[rgb]{0.1,0.5,0.4}{\textbf{(a)}} If $f$ is integrable over $[1,\infty)$ then, by definition, $\int_{[1,\infty)} |f|$ converges. But
+\begin{align}
+    \int_{[1,\infty)} |f| &= \int_{1}^{2} |f| + \int_{2}^{3} |f| + \int_{3}^{4} |f| + \ldots \\
+    &\geq \left|\int_{1}^{2} f \right| + \left|\int_{2}^{3} f \right| + \left|\int_{3}^{4} f \right| + \ldots \\
+    &= \sum\limits_{n=1}^{\infty} |a_n|,
+\end{align}
+implying that $\sum\limits_{n=1}^{\infty} a_n$ converges absolutely. Thus, $\sum\limits_{n=1}^{\infty} a_n$ converges. 
+
+As for the converse statement, it is not necessarily true. Consider the following counter-example. Let $f(x) = \pi\cos(\pi x)$. Then $a_n = \int_{n}^{n+1} \pi \cos(\pi x) \hspace{1mm} dx = \sin((n+1)\pi) - \sin(n\pi) = 0$ for all $n$. Clearly $\sum\limits_{n=1}^{\infty} a_n$ converges, but $\int_{[1,\infty)} \pi\cos(\pi x) \hspace{1mm} dx = \lim_{x\rightarrow\infty}\sin(\pi x) - \sin(\pi)$ diverges.
+
+\vspace{5mm}
+
+\noindent\textcolor[rgb]{0.1,0.5,0.4}{\textbf{(b)}} We already showed in the previous part that if $f$ is integrable over $[1,\infty)$ then $\sum\limits_{n=1}^{\infty} a_n$ converges absolutely. 
+
+The converse statement also doesn't hold in this case. The same counter-example can be used here, since $\sum\limits_{n=1}^{\infty} a_n$ (with $a_n$ defined as in part (a)) also converges absolutely.
+
+\hfill$\blacksquare$
+
+\vfill
+
+\begin{center}
+\pgfornament[width = 50mm, color = black, symmetry = h]{83}\\
+\vspace{2mm}
+\vspace{-0.65cm}
+\hrulefill \\
+\vspace{-0.95cm}
+\hrulefill
+\end{center}
+
+\end{document}
