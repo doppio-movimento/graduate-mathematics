@@ -1,0 +1,182 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage{pgfornament}
+\usepackage[many]{tcolorbox}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\newcommand\textbox[1]{%
+  \parbox{.333\textwidth}{#1}%
+}
+
+\linespread{2}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{2pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=R,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\title{MAT 523 HW 5}
+\begin{document}
+
+\begin{center}
+\begin{large}
+\textbf{MAT 523: Functions of a Real Variable I \\
+Homework V \\}
+\end{large}
+Nolan R. H. Gagnon \\
+\end{center}
+
+\noindent \textbf{(1.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Every interval (open, closed, half-open, bounded, unbounded, etc.) is a Borel set.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+The collection $\mathcal{B}$ of Borel sets is the smallest $\sigma-$algebra of sets of real numbers that contain all the open sets of real numbers. Since open intervals are open sets, they are Borel sets. Let $a$ be a finite real number. From our previous conclusion, we know that $(a,\infty)\in\mathcal{B}$ (since it is an open interval). But $\mathcal{B}$ is a $\sigma-$algebra, so it is closed with respect to the formation of complements. Thus, $(-\infty, a]\in\mathcal{B}.$ By similar reasoning, we can conclude that intervals of the form $[a, \infty)$ are members of $\mathcal{B}$. Next, since $\mathcal{B}$ is closed under countable unions, sets of the form $(-\infty,a)\cup(a,\infty)$ are members of $\mathcal{B}.$ But then complements of these types of sets are also in $\mathcal{B}$, so
+\begin{align*}
+    \left((-\infty,a)\cup(a,\infty)\right)^{C} &= [a,\infty)\cap(-\infty, a] \\
+    &= \lbrace a \rbrace
+\end{align*}
+is in $\mathcal{B}.$ Using this result, we can show that closed intervals are members of $\mathcal{B}.$ Let $b$ be another finite real number. Then
+\begin{align*}
+    [a,b] &= (a,b)\cup\lbrace a \rbrace \cup \lbrace b \rbrace 
+\end{align*}
+is in $\mathcal{B}$ because it is a countable union of sets that we already know to be in $\mathcal{B}.$ By similar reasoning, we can show that bounded, half-open intervals are in $\mathcal{B}.$
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(2.)} 
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill 
+
+\noindent Every open set is an $F_{\sigma}$ set. 
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+Let $\mathcal{O}$ be an open set. Then we can write $$\mathcal{O} = \bigcup\limits_{k=1}^{\infty}(a_k, b_k),$$ where $a_k,b_k$ are extended real numbers satisfying $a_k\leq b_k.$ Note that we can write each $(a_k, b_k)$ as
+$$
+(a_k, b_k) = \bigcup\limits_{n=1}^{\infty}\left[a_k + \frac{b_k-a_k}{3n}, b_k - \frac{b_k-a_k}{3n}\right].
+$$
+So we can write 
+$$
+\mathcal{O} = \bigcup_{k=1}^{\infty}\left(\bigcup\limits_{n=1}^{\infty}\left[a_k + \frac{b_k-a_k}{3n}, b_k - \frac{b_k-a_k}{3n}\right]\right).
+$$
+A countable union of countable unions is still a countable union. Thus, $\mathcal{O}$ is a countable union of closed sets. Therefore, it is an $F_{\sigma}$ set.
+
+\vspace{3mm}
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(3.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Let $A\subset \mathbb{R}$. Then for any $\varepsilon>0$, there exists an open set $\mathcal{O}$ such that $A\subset \mathcal{O}$ and $m^{*}(\mathcal{O})\leq m^{*}(A) + \varepsilon$.
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+Let $\varepsilon > 0$. First, suppose $m^{*}(A) = \infty$. Note that $\mathbb{R}$ is open and $A\subset\mathbb{R}$. We have
+\begin{align*}
+    m^{*}(\mathbb{R}) &= \infty \\
+    &\leq \infty \\
+    &= \infty + \varepsilon \\
+    &= m^{*}(A) + \varepsilon,
+\end{align*}
+as required. 
+
+Next, suppose $m^{*}(A) < \infty.$
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(4.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Suppose $A,B$ are subsets of $\mathbb{R}$ and $m^{*}(A) = 0.$ Then $m^{*}\left(A\cup B\right) = m^{*}(B).$
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+Clearly $B\subseteq A\cup B$. Thus, by the monotonicity of outer measure, we have $$m^{*}\left(B) \leq m^{*}(A\cup B).$$ We also have that $$m^{*}(A\cup B) \leq m^{*}(A) + m^{*}(B) = 0 + m^{*}(B) = m^{*}(B),$$ by Proposition 3. Since $m^{*}(A\cup B) \leq m^{*}(B)$ and $m^{*}(B) \leq m^{*}(A \cup B)$, it must be the case that $m^{*}(A\cup B) = m^{*}(B).$ 
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent \textbf{(5.)}
+
+\vspace{3mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Statement}}}\hspace{3mm}\hrulefill
+
+\noindent Let $A$ be the set of irrational numbers in $[0,1]$. Then $m^{*}(A) = 1.$
+
+\vspace{5mm}
+
+\noindent\mybox{\colorbox{lightgray}{\textbf{Proof}}}\hspace{3mm}\hrulefill
+
+Let $B$ be the set of rational numbers in $[0,1]$. Then we can write $[0,1] = A \cup B$. Now, $\mathbb{Q}$ is countable, and since a subset of a countable set is countable, it follows that $B$ is countable. Therefore, $m^{*}(B) = 0$. Applying the result of Problem 4 (from the previous page), we see that
+$$m^{*}([0,1])=m^{*}(A\cup B) = m^{*}(A).$$ But $m^{*}([0,1])=1.$ Thus, $m^{*}(A) = 1.$
+
+\hfill$\blacksquare$
+\end{document}
