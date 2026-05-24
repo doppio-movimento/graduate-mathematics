@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+
+\linespread{1.8}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{1pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+
+\title{MAT 527:  Functions of a Complex Variable I \\
+	   \textbf{Submission II}}
+\author{Nolan R. H. Gagnon}
+\begin{document}
+\maketitle
+\large
+\noindent\mybox{\textbf{1. Theorem}} If $\mathcal{F}_1$ and $\mathcal{F}_2$ are closed, then $\mathcal{F}_1 \bigcup \mathcal{F}_2$ is closed. 
+
+\vspace{3mm}
+
+\noindent\textbf{Proof One:}  The complement of $\mathcal{F}_1 \bigcup \mathcal{F}_2$ is $\mathbb{C} - \mathcal{F}_1 \bigcup \mathcal{F}_2 = \left(\mathbb{C} - \mathcal{F}_!\right) \bigcap \left(\mathbb{C} - \mathcal{F}_2\right)$, by DeMorgan's Law.  Since $\mathcal{F}_1$ and $\mathcal{F}_2$ are closed, the sets $\mathbb{C} -\mathcal{F}_1$ and $\mathbb{C} - \mathcal{F}_2$ must be open.  The intersection of two open sets is also open; therefore, $\mathbb{C} - \mathcal{F}_1 \bigcup \mathcal{F}_2$ is open.  Thus, $\mathcal{F}_1 \bigcup \mathcal{F}_2$ is closed.
+
+\hfill$\blacksquare$
+
+\vspace{3mm}
+
+\noindent\textbf{Proof Two:}  Let $(z_n)$ be a convergent sequence with terms in $\mathcal{F}_1 \bigcup \mathcal{F}_2$ whose limit is $L\in\mathbb{C}$.  By the Pigeon-hole Principle, at least one of $\mathcal{F}_1$ and $\mathcal{F}_2$ contains infinitely many terms of $(z_n)$.  Without loss of generality, suppose $\mathcal{F}_1$ contains infinitely many terms of $(z_n)$.  These terms form a subsequence $(z_{n_k})$ of $(z_n)$.  But $(z_{n_k})$ converges to $L$, since subsequences of convergent sequences converge to the limit of the parent sequence.  Since $\mathcal{F}_1$ is closed, $L$ must be an element of $\mathcal{F}_1$.  Therefore, $L\in \mathcal{F}_1 \bigcup \mathcal{F}_2$.  Thus, $\mathcal{F}_1 \bigcup \mathcal{F}_2$ is closed.
+
+\hfill$\blacksquare$
+
+\vspace{15mm}
+
+\noindent\mybox{\textbf{2. Theorem}} If $\left\lbrace \mathcal{F}_{\lambda}\right\rbrace_{\lambda\in\Lambda}$ is a family of closed sets, then $\bigcap_{\lambda\in\Lambda}\mathcal{F}_{\lambda}$ is closed. 
+
+\vspace{3mm}
+
+\noindent\textbf{Proof One:}  The complement of $\bigcap_{\lambda\in\Lambda}\mathcal{F}_{\lambda}$ is $\mathbb{C} - \bigcap_{\lambda\in\Lambda}\mathcal{F}_{\lambda} = \bigcup_{\lambda\in\Lambda}(\mathbb{C} - \mathcal{F}_{\lambda})$, by DeMorgan's Law.  Since each $\mathcal{F}_{\lambda}$ is closed, the sets $\mathbb{C} - \mathcal{F}_{\lambda}$ are open.  This makes $\mathbb{C} - \bigcap_{\lambda\in\Lambda}\mathcal{F}_{\lambda}$ a union of a family of open sets, and, therefore, open.  Thus, $\bigcap_{\lambda\in\Lambda}\mathcal{F}_{\lambda}$ is closed. 
+
+\hfill$\blacksquare$
+
+\vspace{3mm}
+
+\noindent\textbf{Proof Two:}  Let $(z_n)$ be a convergent sequence with terms in $\bigcap_{\lambda\in\Lambda}\mathcal{F}_{\lambda}$ whose limit is $L\in\mathbb{C}$.  Then, for all $\lambda\in\Lambda$, and all $n\in\mathbb{N}$, $z_n\in\mathcal{F}_{\lambda}$.  Since each $\mathcal{F}_{\lambda}$ is closed, it must be the case that for all $\lambda$, $L\in\mathcal{F}_{\lambda}$.  Therefore, $L\in \bigcap_{\lambda\in\Lambda}\mathcal{F}_{\lambda}$.  Thus, $\bigcap_{\lambda\in\Lambda}\mathcal{F}_{\lambda}$ is closed.
+
+\hfill$\blacksquare$
+
+\end{document}
