@@ -1,0 +1,191 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+\usepackage[margin = 0.5in]{geometry}
+\usepackage{collectbox}
+
+\linespread{1.8}
+
+\makeatletter
+\newcommand{\mybox}{%
+    \collectbox{%
+        \setlength{\fboxsep}{1pt}%
+        \fbox{\BOXCONTENT}%
+    }%
+}
+\makeatother
+
+
+\title{MAT 527:  Functions of a Complex Variable I \\
+	   \textbf{Submission IV}}
+\author{Nolan R. H. Gagnon}
+\begin{document}
+\maketitle
+\noindent\mybox{\textbf{Problem 5.3.1}}  Consider a contour $\mathscr{C}$ given by $|z| = C$, where $C \neq \frac{1}{2}$ and $C \neq 2$.  Calculate $$\oint\limits_{\mathscr{C}} \frac{1}{2z^2 + 5z + 2} dz.$$
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  By partial fraction decomposition, the integrand above can be written as $$\frac{1}{2z^2+5z+2} = \frac{1/3}{z+\frac{1}{2}} - \frac{1/3}{z+2}.$$  Thus,
+\begin{align}
+\oint\limits_{\mathscr{C}} \frac{dz}{2z^2 + 5z + 2} &= \oint\limits_{\mathscr{C}} \left(\frac{1/3}{z+\frac{1}{2}} - \frac{1/3}{z+2} \right) dz \\
+&= \oint\limits_{\mathscr{C}} \frac{1/3}{z+\frac{1}{2}} dz - \oint\limits_{\mathscr{C}} \frac{1/3}{z+2} dz
+\end{align}
+
+
+\noindent Suppose $C < \frac{1}{2}$.  Then $\mathscr{C}$ does not contain $z = -\frac{1}{2}$ and $z = - 2$, and the integrands in (2) are holomorphic in and on $\mathscr{C}$.  Therefore, by Cauchy's Theorem, the integrands in (2) are both equal to 0.  
+
+\noindent Next, suppose $\frac{1}{2} < C < 2$.  Since a constant function (i.e., $f(z) = 1/3$) is holomoprhic everywhere, the first integral in (2) is equal to $\frac{2\pi i}{3}$, by Cauchy's Integral Formula.  The second integrand is still holomorphic in and on $\mathscr{C}$, so the second integral is equal to $0$, by Cauchy's Theorem.  
+
+\noindent Finally, suppose $C > 2$.  Then, since constant functions are holomoprhic everywhere, the expression in (2) is equal to $2\pi i \left(\frac{1}{3} - \frac{1}{3}\right) = 0$, by Cauchy's Integral Formula.
+
+\noindent Thus, $$\oint\limits_{\mathscr{C}} \frac{1}{2z^2 + 5z + 2} dz =
+\begin{cases}
+0 \hspace{8mm} \text{if } C < \frac{1}{2} \text{ or } C > 2 \\
+\frac{2\pi i}{3} \hspace{5mm} \text{if } \frac{1}{2} < C < 2.
+\end{cases}
+$$
+
+\pagebreak
+
+\noindent\mybox{\textbf{Problem 5.6.3}}  Let $f(z)$ and $g(z)$ be holomorphic in the disc $|z| < 2$.  Show that $$\frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\left[\frac{f(\zeta)}{\zeta - z} + \frac{zg(\zeta)}{z\zeta - 1}\right] d\zeta = \begin{cases}
+f(z) \hspace{9mm} \text{if } |z| < 1 \\
+g\left(\frac{1}{z}\right) \hspace{7mm} \text{if } |z| > 1.
+\end{cases}
+$$
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  Suppose $|z| < 1$.  Then $z$ is enclosed by the contour $\mathscr{C}$, but $\frac{1}{z}$ is not.  Therefore, by Cauchy's Integral Formula
+$$\frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{f(\zeta)}{\zeta - z} d\zeta = f(z),$$ since f is holomorphic everywhere inside $\mathscr{C}$ except at $z$. By Cauchy's Theorem, $$\frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{zg(\zeta)}{z\zeta - 1} d\zeta = \frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{g(\zeta)}{\zeta - \frac{1}{z}} d\zeta = 0$$
+since $\frac{zg(\zeta)}{z\zeta - 1}$ is holomorphic everywhere inside $\mathscr{C}$.  Therefore,
+$$
+\frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\left[\frac{f(\zeta)}{\zeta - z} + \frac{zg(\zeta)}{z\zeta - 1}\right] d\zeta = f(z).
+$$
+On the other hand, suppose that $|z| > 1$. Then $z$ is outside the contour $\mathscr{C}$, while $\frac{1}{z}$ is enclosed by it.  By Cauchy's Integral Formula, 
+$$\frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{zg(\zeta)}{z\zeta - 1} d\zeta = \frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{g(\zeta)}{\zeta - \frac{1}{z}} d\zeta = g\left(\frac{1}{z}\right) 
+$$
+since $g$ is holomorphic everywhere inside $\mathscr{C}$ except at $\frac{1}{z}$.  By Cauchy's Theorem, 
+$$
+\frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{f(\zeta)}{\zeta - z} d\zeta = 0
+$$
+since $f$ is holomorphic everywhere inside $\mathscr{C}$.  Thus, 
+$$\frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\left[\frac{f(\zeta)}{\zeta - z} + \frac{zg(\zeta)}{z\zeta - 1}\right] d\zeta = g\left(\frac{1}{z}\right).
+$$
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent\mybox{\textbf{Problem 5.6.4}}  Consider the contour $\mathscr{C}$ given by $|z| = 1$.  Show that $$\int\limits_0^{\pi} \frac{1+2\cos(\theta)}{5+4\cos(\theta)} \hspace{1mm} d\theta = 0.$$
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}}  First, note that, due to the even and periodic nature of the cosine function, 
+\begin{align}
+\int\limits_0^{\pi} \frac{1+2\cos(\theta)}{5+4\cos(\theta)} \hspace{1mm} d\theta &= \frac{1}{2} \int\limits_0^{2\pi} \frac{1+2\cos(\theta)}{5+4\cos(\theta)} \hspace{1mm} d\theta.
+\end{align}
+Next, since $2\cos(\theta) = e^{i\theta} + e^{-i\theta}$, we have 
+\begin{align}
+\frac{1}{2}\int\limits_0^{2\pi} \frac{1+2\cos(\theta)}{5+4\cos(\theta)} \hspace{1mm} d\theta &= \frac{1}{2}\int\limits_0^{2\pi} \frac{1+e^{i\theta} + e^{-i\theta}}{5+2e^{i\theta} + 2e^{-i\theta}} \hspace{1mm} d\theta.
+\end{align}
+\noindent As $|z|=1$, we have $z=e^{i\theta}$ and $\frac{1}{z} = e^{-i\theta}$.  Furthermore, $d\theta = \frac{dz}{iz}$. Therefore,
+\begin{align}
+\frac{1}{2}\int\limits_0^{2\pi} \frac{1+e^{i\theta} + e^{-i\theta}}{5+2e^{i\theta} + 2e^{-i\theta}} \hspace{1mm} d\theta &= \frac{1}{2i}\oint\limits_{\mathscr{C}}\frac{1+z+\frac{1}{z}}{5z+2z^2+2} \hspace{1mm} dz \\ 
+&= \frac{1}{2i}\oint\limits_{\mathscr{C}}\frac{z^2 + z + 1}{z(2z^2+5z+2)} \hspace{1mm} dz.
+\end{align}
+
+\noindent Using partial fraction decomposition, the last integrand above can be written as $$\frac{z^2 + z + 1}{z(2z^2+5z+2)} = \frac{1/2}{z} + \frac{-1/2}{z+\frac{1}{2}} + \frac{1/2}{z+2}.$$  Thus, 
+\begin{align}
+\frac{1}{2i}\oint\limits_{\mathscr{C}}\frac{z^2 + z + 1}{z(2z^2+5z+2)} \hspace{1mm} dz &= \pi\left[\frac{1}{2\pi i}\oint\limits_{\mathscr{C}} \left(\frac{1/2}{z} + \frac{-1/2}{z+\frac{1}{2}} + \frac{1/2}{z+2}\right) dz\right] \\
+&= \pi \left[\frac{1}{2\pi i}\oint\limits_{\mathscr{C}} \frac{1/2}{z} dz + \frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{-1/2}{z+\frac{1}{2}} dz + \frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{1/2}{z+2} dz \right].
+\end{align}
+
+\noindent Since a constant function is holomorphic everywhere and $\mathscr{C}$ encloses $z=0$ and $z=-\frac{1}{2}$, Cauchy's integral formula can be applied to the first and second integrals above.  As for the third integral, it can be dealt with using Cauchy's Theorem, since its integrand is holomorphic in and on $\mathscr{C}$.  Therefore,
+\begin{align}
+\pi \left[\frac{1}{2\pi i}\oint\limits_{\mathscr{C}} \frac{1/2}{z} dz + \frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{-1/2}{z+\frac{1}{2}} dz + \frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{1/2}{z+2} dz \right] &= \pi \left( \frac{1}{2} - \frac{1}{2} + 0\right) \\
+&= 0.  
+\end{align}
+
+\noindent Hence, $$\int\limits_0^{\pi} \frac{1+2\cos(\theta)}{5+4\cos(\theta)} \hspace{1mm} d\theta = 0.$$
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent\mybox{\textbf{Problem 5.6.5:}}  Let $\mathscr{C}$ be a closed simple contour with positive orientation that encloses the origin.  Show that $$\oint\limits_{\mathscr{C}}\frac{e^{kz}}{z} dz = 2\pi i$$ and use this result to show that $$\int\limits_0^\pi e^{k\cos(\theta)}\cos(k\sin(\theta))d\theta = \pi.$$
+
+\noindent\mybox{\textbf{Solution:}}  The function $f(z) = e^{kz}$ is holomorphic everywhere, so by Cauchy's Integral Formula, the integral $$\oint\limits_{\mathscr{C}} \frac{e^{kz}}{z} dz = e^{0}2\pi i = 2 \pi i.$$  Now, since $g(\theta) = e^{k\cos(\theta)}\cos(k\sin(\theta))$ is periodic with period $2\pi$, the integral
+\begin{align}
+\int\limits_0^{\pi}e^{k\cos(\theta)}\cos(k\sin(\theta)) d\theta &= \frac{1}{2}\int\limits_0^{2\pi}e^{k\cos(\theta)}\cos(k\sin(\theta)) d\theta.  
+\end{align}
+
+\noindent Let $\mathscr{C}^{\prime}$ be the contour defined by $|z| = 1$, for $z\in\mathbb{C}$.  Write 
+\begin{align}
+\frac{1}{2}\int\limits_0^{2\pi}e^{k\cos(\theta)}\cos(k\sin(\theta)) d\theta &= \frac{1}{2}\int\limits_0^{2\pi}e^{k\cos(\theta)}\left[\cos(k\sin(\theta)) + i\sin(k\sin(\theta)) - i\sin(k\sin(\theta))\right] d\theta \\
+&= \frac{1}{2}\int\limits_0^{2\pi}e^{k\cos(\theta)}\left[e^{ik\sin(\theta)}-i\sin(k\sin(\theta))\right] d\theta \\
+&= \frac{1}{2}\int\limits_0^{2\pi}e^{k\cos(\theta)+ik\sin(\theta)} d\theta - \frac{i}{2}\int\limits_0^{2\pi}e^{k\cos(\theta)}\sin(k\sin(\theta))d\theta.
+\end{align}
+
+\noindent Note that the integrand of the second integral above is an odd periodic function with period $2\pi$.  Since it is being integrated over one period, its integral is $0$.  Therefore,
+\begin{align}
+ \frac{1}{2}\int\limits_0^{2\pi}e^{k\cos(\theta)+ik\sin(\theta)} d\theta - \frac{i}{2}\int\limits_0^{2\pi}e^{k\cos(\theta)}\sin(k\sin(\theta))d\theta &=  \frac{1}{2}\int\limits_0^{2\pi}e^{k\cos(\theta)+ik\sin(\theta)} d\theta \\
+ &= \frac{1}{2i}\oint\limits_{\mathscr{C}^{\prime}} \frac{e^{kz}}{z} dz,
+\end{align}
+
+\noindent since $z = e^{i\theta}$ and $d\theta = \frac{dz}{iz}$.  But we have already shown (in part one of this question) that $$\oint\limits_{\mathscr{C}^{\prime}}\frac{e^{kz}}{z} dz = 2\pi i.$$  Therefore, 
+
+$$\int\limits_0^{\pi}e^{k\cos(\theta)}\cos(k\sin(\theta)) d\theta = \frac{1}{2i}\oint\limits_{\mathscr{C}^{\prime}} \frac{e^{kz}}{z} dz = \frac{2\pi i}{2i} = \pi.$$
+
+\hfill$\blacksquare$
+
+\pagebreak
+
+\noindent\mybox{\textbf{Problem 5.6.7:}}  Let $\alpha, \beta$ be real numbers with $\alpha^2 > \beta^2$.  Show that $$\int\limits_0^{2\pi}\frac{d\theta}{\alpha + \beta\cos(\theta)} = \frac{2\pi}{\sqrt{\alpha^2 - \beta^2}}.$$  If $\alpha$, $\beta$ are complex, not necessarily real, what conditions are necessary to guarantee the same result, and what branch of the square root should be used.  
+
+\vspace{5mm}
+
+\noindent\mybox{\textbf{Solution:}} Let $\mathscr{C}$ be the closed contour defined by $|z| = 1$.  On this contour, $$\cos(\theta) = \frac{1}{2}\left(e^{i\theta}+e^{-i\theta}\right) = \frac{1}{2}\left(z + \frac{1}{z}\right).$$ Furthermore, with $z=e^{i\theta}$, we have $d\theta = \frac{dz}{iz}.$  Thus,
+\begin{align}
+\int\limits_0^{2\pi}\frac{d\theta}{\alpha + \beta\cos(\theta)} &= \frac{1}{i}\oint\limits_{\mathscr{C}}\frac{dz}{\alpha z + \frac{\beta}{2}z^2 + \frac{\beta}{2}} \\
+&= 2\pi \left[\frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{dz}{\frac{\beta}{2}(\frac{2\alpha}{\beta}z + z^2 + 1)}\right] \\
+&= \frac{4\pi}{\beta}\left[\frac{1}{2\pi i}\oint\limits_{\mathscr{C}}\frac{dz}{(\frac{2\alpha}{\beta}z + z^2 + 1)}\right] \\
+&= \frac{4\pi}{\beta}\left[\frac{1}{2\pi i} \oint\limits_{\mathscr{C}}\frac{dz}{(z+\phi)(z+\psi)}\right],
+\end{align}
+
+\noindent where $\phi = \frac{\alpha}{\beta} + \frac{1}{|\beta|}\sqrt{\alpha^2 - \beta^2}$ and $\psi = \frac{\alpha}{\beta} - \frac{1}{|\beta|}\sqrt{\alpha^2 - \beta^2}$.  Using partial fraction decomposition, the final integral above can be written as 
+\begin{align}
+\frac{4\pi}{\beta}\left[\frac{1}{2\pi i} \oint\limits_{\mathscr{C}}\frac{dz}{(z+\phi)(z+\psi)} \right] &= \frac{4\pi}{\beta}\left[\frac{1}{2\pi i} \oint\limits_{\mathscr{C}}\frac{\frac{1}{\psi - \phi}}{(z+\phi)}dz +  \frac{1}{2\pi i} \oint\limits_{\mathscr{C}}\frac{\frac{1}{\phi - \psi}}{(z+\psi)}dz\right].
+\end{align}
+
+\noindent Observe that
+\begin{align}
+(-\phi)(-\psi) &= \left(\frac{\alpha}{\beta} + \frac{1}{|\beta|}\sqrt{\alpha^2 - \beta^2}\right)\left(\frac{\alpha}{\beta} - \frac{1}{|\beta|}\sqrt{\alpha^2 - \beta^2}\right) \\
+&= \left(\frac{\alpha}{\beta}\right)^2 - \frac{\alpha^2 - \beta^2}{\beta^2} \\
+&= \frac{\beta^2}{\beta^2} \\
+&= 1.
+\end{align}
+
+\noindent Since $\alpha \neq \beta$, the only way to make $(-\phi)(-\psi) = 1$ is to make $|\phi| > 1$ and $|\psi| < 1$, or vice versa.  Thus, exactly one of $-\phi$ and $-\psi$ lies inside the region bounded by $\mathscr{C}$.  If $|\psi| < 1$ and $|\phi| > 1$, then, using Cauchy's Theorem and Cauchy's Integral Formula, we have
+\begin{align}
+\frac{4\pi}{\beta}\left[\frac{1}{2\pi i} \oint\limits_{\mathscr{C}}\frac{\frac{1}{\psi - \phi}}{(z+\phi)}dz +  \frac{1}{2\pi i} \oint\limits_{\mathscr{C}}\frac{\frac{1}{\phi - \psi}}{(z+\psi)}dz\right] &= \frac{4\pi}{\beta}\left(\frac{1}{\phi - \psi}\right) \\
+&= \frac{4\pi}{\beta}\left(\frac{1}{\frac{2}{|\beta|}\sqrt{\alpha^2 - \beta^2}}\right) \\
+&= \begin{cases}
+\frac{2\pi}{\sqrt{\alpha^2 - \beta^2}} \hspace{2mm} \text{if } \beta > 0\\
+\frac{-2\pi}{\sqrt{\alpha^2 - \beta^2}} \hspace{2mm} \text{if } \beta < 0.
+\end{cases}
+\end{align}
+
+\noindent If $|\phi| < 1$ and $|\psi| > 1$, then
+\begin{align}
+\frac{4\pi}{\beta}\left[\frac{1}{2\pi i} \oint\limits_{\mathscr{C}}\frac{\frac{1}{\psi - \phi}}{(z+\phi)}dz +  \frac{1}{2\pi i} \oint\limits_{\mathscr{C}}\frac{\frac{1}{\phi - \psi}}{(z+\psi)}dz\right] &= \frac{4\pi}{\beta}\left(\frac{1}{\psi - \phi}\right) \\
+&= \frac{4\pi}{\beta}\left(\frac{1}{\frac{-2}{|\beta|}\sqrt{\alpha^2 - \beta^2}}\right) \\
+&= \begin{cases}
+\frac{-2\pi}{\sqrt{\alpha^2 - \beta^2}} \hspace{2mm} \text{if } \beta > 0\\
+\frac{2\pi}{\sqrt{\alpha^2 - \beta^2}} \hspace{2mm} \text{if } \beta < 0.
+\end{cases}
+\end{align}
+
+\hfill$\blacksquare$
+\end{document}
